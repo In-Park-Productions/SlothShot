@@ -1,4 +1,5 @@
 extends Node2D
+onready var transiton:Node2D=get_node("Tranisition")
 export(String) var game_scene
 
 
