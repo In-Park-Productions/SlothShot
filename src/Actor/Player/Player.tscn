@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://src/Actor/Player/Playerscripts/Player.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 29.9638, 28.9866 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6.78191, 7.29999 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 30.4093, 30.7684 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+position = Vector2( 60.463, 507.677 )
+input_pickable = true
+script = ExtResource( 2 )
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Body"]
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+
+[node name="Raycast" type="Node2D" parent="Body"]
+
+[node name="otherelements" type="Node2D" parent="Body"]
+
+[node name="Tween" type="Tween" parent="Body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="statemachine" type="Node" parent="."]
+
+[node name="Branch_Detector" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Branch_Detector"]
+position = Vector2( -0.890892, -4.67722 )
+shape = SubResource( 2 )
+
+[node name="Drag_Area" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drag_Area"]
+shape = SubResource( 3 )

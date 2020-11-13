@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/main/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://src/Shaders/Tranisition.tscn" type="PackedScene" id=2]
+
+[node name="Main_menu" type="Node2D"]
+script = ExtResource( 1 )
+game_scene = "res://game.tscn"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Tranisition" parent="CanvasLayer" instance=ExtResource( 2 )]
+z_index = 1
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "SlothShot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+margin_left = 7.0
+margin_top = 20.0
+margin_right = 247.0
+margin_bottom = 60.0
+mouse_default_cursor_shape = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -10.0
+margin_top = -7.0
+text = "Start"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_TextureButton_pressed"]
