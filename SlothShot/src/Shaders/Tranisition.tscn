@@ -4,13 +4,13 @@
 [ext_resource path="res://src/Shaders/Tranisition.gd" type="Script" id=2]
 [ext_resource path="res://src/Shaders/Tranisition.shader" type="Shader" id=3]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
 shader_param/cutt_off = 0.0
 shader_param/smooth_step = 0.506
 shader_param/mask = ExtResource( 1 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "FadeIn"
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:material:shader_param/cutt_off")
@@ -29,7 +29,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 margin_right = 1021.0
 margin_bottom = 604.0
 rect_scale = Vector2( 0.997874, 1 )
@@ -39,4 +39,4 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 3 )
+anims/FadeIn = SubResource( 2 )
