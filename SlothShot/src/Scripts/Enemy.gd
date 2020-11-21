@@ -7,7 +7,7 @@ enum {
 }
 
 var state = Idle
-export var speed
+export var speed: float
 
 # Declare member variables here. Examples:
 # var a = 2
