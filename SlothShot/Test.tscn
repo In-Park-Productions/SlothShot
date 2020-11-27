@@ -100,4 +100,3 @@ position = Vector2( 797.159, 391.512 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
-[connection signal="input_event" from="Player" to="Player" method="_on_Player_input_event"]

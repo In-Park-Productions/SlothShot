@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "statemachinefsm",
+"class": "physics",
 "language": "GDScript",
-"path": "res://src/Statemachine/mainFsm.gd"
+"path": "res://Physics/Physics.gd"
 } ]
 _global_script_class_icons={
-"statemachinefsm": ""
+"physics": ""
 }
 
 [application]
@@ -34,4 +34,5 @@ Click={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"

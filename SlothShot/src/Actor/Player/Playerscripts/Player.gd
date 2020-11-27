@@ -1,79 +1,26 @@
-extends KinematicBody2D
+extends Area2D
 
-enum{
-	Idle,
-	Dragged,
-	Launched,
-	Fall,
-	Holding_branch
-}
- 
-#logic things may be
-var state=Fall
-var impulse=null
-var holding=false
-var maximum_jump_velocity
-
-#kinematic things
-var gravity=9.8
-var maximum_jump_height=250
-var time=0.5
-var launch_velocity
-
-#VectorStuffs
-var velocity=Vector2()
-var threshold_vector=Vector2()
-
-
-#cast Nodes
-onready var holding_branch=get_node("Branch_Detector")
-onready var Body=get_node("Body") 
-
-func _ready():
-	holding_branch.connect("area_entered",self,"check_for_holding")
-	
-func _physics_process(delta:float)->void:
+onready var body:Node2D=get_node("Body")
+onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
+var drag_vector=Vector2()
+func _process(delta):
 	if Input.is_action_pressed("Click"):
-		var a =(global_position-get_global_mouse_position()).angle()
-		print(rad2deg(-a))
-	if holding==false&& state!=Dragged:
-		velocity.y+=10
-	velocity=move_and_slide(velocity)
-	match state:
-		Idle:
-			pass
-		Dragged:
-			velocity.y=0
-			threshold_vector=get_global_position()-get_global_mouse_position()
-			threshold_vector=threshold_vector.normalized()
-		Launched:
-			velocity=(maximum_jump_velocity*threshold_vector)*-1.25
-			threshold_vector.y+=0.01
-			if threshold_vector.y>=0:
-				state=Fall
-		Fall:
-			velocity.y+=gravity*delta
-		Holding_branch:
-			velocity=Vector2()
+		drag_vector=get_local_mouse_position()
+		drag_vector=drag_vector.clamped(150)
+		drag_vector.y=clamp(drag_vector.y,10.0,150.0)
+		body.position=drag_vector
+	if Input.is_action_just_released("Click"):
+		body.position=Vector2(0,0)
 
 
-func handle_input():
-	pass
 
-func Holding_branch():
-	pass
-
-
-func check_for_holding(area:Area2D):
-	print("hi")
-	holding=true
-	state=Holding_branch
-
-
-func add_force(velocity:Vector2,Time:float):
-	pass
-
-
-func _on_Player_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed("Click"):
-		state=Dragged
+func calculate_projectile(player_position:Vector2,mouse_position:Vector2,\
+Gravity:float,Airresistance:float,Mass:float=0)->Vector2:
+	var velocity_vector=Vector2()
+	var angle=(player_position-mouse_position).angle()
+	velocity_vector.x=cos(angle)
+	velocity_vector.y=sin(angle)-(Airresistance)
+	velocity_vector=velocity_vector.normalized()
+	var squared_vector=pow(velocity_vector.x,2)+pow(velocity_vector.y,2)
+	var vector_maginitude=sqrt(squared_vector)
+	return velocity_vector
