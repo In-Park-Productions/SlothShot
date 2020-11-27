@@ -8,9 +8,5 @@ func StartButton_Pressed():
 func QuitButton_Pressed():
 	get_tree().quit()
 
-func TestSceneButton_Pressed():
-	get_tree().change_scene("res://src/tests/Test.tscn")
-
-
 func TestButton_Pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://src/tests/Test.tscn")
