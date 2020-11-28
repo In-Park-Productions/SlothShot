@@ -8,6 +8,9 @@ var eagletimeinterval = 5.0
 var foregrounddistinterval = 20.0
 var vinedistinterval = 5.0
 
+onready var camera = get_node("./Camera2D")
+var worldparent
+
 var isrunning = false
 var speed = 0.0
 var score = 0.0
@@ -28,11 +31,13 @@ onready var vineprefab = preload("res://src/actors/vine.tscn")
 onready var foregroundprefab = preload("res://src/actors/foreground.tscn")
 
 func _ready():
+	# Initiate scenes
 	var uinode = get_node("./UI")
-	uinode.add_child(gameuiprefab)
+	uinode.add_child(gameuiprefab.instance())
 	var worldnode = get_node("./World")
-	worldnode.add_child(gameworldprefab)
+	worldparent = worldnode.add_child(gameworldprefab.instance())
 	
+	# Load highscores
 	var fd = File.new()
 	if fd.file_exists("user://high.score"):
 		fd.open("user://high.score", File.READ)
@@ -41,8 +46,15 @@ func _ready():
 		fd.open("user://high.score", File.WRITE)
 		fd.store_string("0")
 		highscore = 0
-	fd.close()	
+	fd.close()
 	
+	# Create initial objects
+	spawn_foreground(0)
+	spawn_foreground(foregrounddistinterval)
+	spawn_player()
+	spawn_vine(0)
+	
+	start_game()
 	
 func _process(delta):
 	if isrunning:
@@ -51,34 +63,34 @@ func _process(delta):
 			speed = maxspeed
 		distance += delta * speed
 		score = distance
-		# camera.transform.position = new Vector3(distance, 5f, -10f)
+		camera.position = Vector2(distance, 0)
 		
 		nextjaguar -= delta
 		nexteagle -= delta
 		
 		if nextjaguar < 0:
 			nextjaguar = jaguartimeinterval
-			# Spawn Jaguar
+			spawn_jaguar(distance)
 		if nexteagle < 0:
 			nexteagle = eagletimeinterval
-			# Spawn Eagle
+			spawn_eagle(distance)
 		if distance > nextforeground:
 			nextforeground += foregrounddistinterval
-			# Spawn Foreground
+			spawn_foreground(distance)
 		if distance > nextvine:
 			nextvine += vinedistinterval
-			# Spawn Vine
+			spawn_vine(distance)
 	else:
 		pass
 		
 func start_game():
-	pass
+	isrunning = true
 	
 func game_over():
-	pass
+	isrunning = false
 	
 func end_game():
-	# Do stuff
+	get_tree().change_scene("res://src/main/main_menu.tsch")
 	
 	if score > highscore:
 		highscore = score
@@ -89,3 +101,17 @@ func end_game():
 	
 	pass
 	
+func spawn_eagle(dist):
+	pass
+	
+func spawn_jaguar(dist):
+	pass
+	
+func spawn_player():
+	pass
+	
+func spawn_vine(dist):
+	pass
+
+func spawn_foreground(dist):
+	pass

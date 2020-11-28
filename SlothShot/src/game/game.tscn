@@ -8,3 +8,5 @@ script = ExtResource( 2 )
 [node name="UI" type="Node" parent="."]
 
 [node name="World" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
