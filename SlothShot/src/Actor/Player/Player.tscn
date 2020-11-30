@@ -1,14 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://src/Actor/Player/Playerscripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/Actor/Player/Playerfsm.gd" type="Script" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [  ],
 "loop": true,
-"name": "default",
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Lauch_Long",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Launch_Short",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Idle",
 "speed": 5.0
 } ]
 
@@ -18,7 +32,7 @@ extents = Vector2( 30.872, 31.649 )
 [node name="Player" type="Area2D" groups=[
 "Player",
 ]]
-position = Vector2( 439.71, 268.271 )
+position = Vector2( 53.5123, 549.68 )
 gravity = 9.8
 script = ExtResource( 2 )
 __meta__ = {
@@ -29,10 +43,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Body"]
 frames = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="Body"]
-visible = false
-texture = ExtResource( 1 )
+animation = "Fall"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 
@@ -47,4 +58,6 @@ script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Velocity_Tween" type="Tween" parent="."]
 [connection signal="time_flight_instanciated" from="." to="." method="_on_Player_time_flight_instanciated"]
