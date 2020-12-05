@@ -8,14 +8,15 @@ var current_state
 var previous_state=null
 
 
-func _process(delta):
+func _physics_process(delta):
 	state_logic(delta)
 	var state=transition(delta)
 	if state!=null:
 		print(state)
-		animation(state)
-		audio(state)
+		previous_state=current_state
 		current_state=state
+		_enter_state(previous_state,current_state)
+		_exit_state(current_state,previous_state)
 
 func state_logic(delta):
 	pass
@@ -23,8 +24,9 @@ func state_logic(delta):
 func transition(delta):
 	return null
 
-func animation(state):
+func _enter_state(_old_state,_new_state):
 	pass
 
-func audio(state):
+func _exit_state(_new_state,_old_state):
 	pass
+#this is the code physic process behind it
