@@ -13,9 +13,7 @@ onready var body:Node2D=get_node("Body")
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var raycasts:Node2D=get_node("Body/Raycast")
 onready var tween:Tween=get_node("Body/Tween")
-
-func calculatefacing(mouse_position)->float:
-	return sign(mouse_position)
+onready var animated_sprite:AnimatedSprite=get_node("Body/AnimatedSprite")
 
 
 func _on_Player_time_flight_instanciated(time_of_flight):
@@ -36,5 +34,7 @@ func Swim():
 	pass
 func set_lauch_velocity(velocity):
 	pass
+
+
 
 
