@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Marimba Fast -- Loopable.ogg-ff5253561828d30dea88fbdf1e74668c.oggstr"
+
+[deps]
+
+source_file="res://src/music/Marimba Fast -- Loopable.ogg"
+dest_files=[ "res://.import/Marimba Fast -- Loopable.ogg-ff5253561828d30dea88fbdf1e74668c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
