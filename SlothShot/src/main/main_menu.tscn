@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/main/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://ARIAL.TTF" type="DynamicFontData" id=2]
-[ext_resource path="res://src/music/GlobalStream.tscn" type="PackedScene" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -97,8 +96,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="GlobalStream" parent="." instance=ExtResource( 3 )]
 [connection signal="pressed" from="CanvasLayer/StartButton" to="." method="StartButton_Pressed"]
 [connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="QuitButton_Pressed"]
 [connection signal="pressed" from="CanvasLayer/TestButton" to="." method="TestButton_Pressed"]
