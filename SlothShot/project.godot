@@ -34,6 +34,10 @@ config/icon="res://icon.png"
 
 GlobalStream="*res://src/music/GlobalStream.tscn"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "Todo_Manager" )
+
 [input]
 
 Click={

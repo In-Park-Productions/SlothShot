@@ -116,8 +116,6 @@ func animate_sloth(current_length:float,facing_and_mouse:Array):
 
 func Todo():
 	#TODO:Complete player animation
-	#TODO:FUCKING KILL ME PLEASE
-	#HACK:Do it Just Do it 
 	pass
 
 

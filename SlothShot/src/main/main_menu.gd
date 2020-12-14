@@ -14,7 +14,6 @@ func TestButton_Pressed():
 	get_tree().change_scene("res://src/tests/Test.tscn")
 
 func _ready():
-	print(GlobalStream)
 
 	if !GlobalStream.playing:
 		GlobalStream.stream = load("res://src/music/Marimba Fast -- Loopable.ogg")
