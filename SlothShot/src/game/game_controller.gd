@@ -36,6 +36,7 @@ func _ready():
 	# Initiate scenes
 	
 	# TODO: Assign Global Stream stream to appropriate track
+	# FIXME: Sprite appears smaller than default sprite size
 	GlobalStream.stop()
 	var uinode = get_node("./UI")
 	uinode.add_child(gameuiprefab.instance())
