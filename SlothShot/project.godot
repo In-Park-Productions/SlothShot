@@ -15,24 +15,25 @@ _global_script_classes=[ {
 "path": "res://Easing/Easing.gd"
 }, {
 "base": "Node",
+"class": "logic",
+"language": "GDScript",
+"path": "res://Logic/Logic_stupid.gd"
+}, {
+"base": "Node",
 "class": "physics",
 "language": "GDScript",
 "path": "res://Physics/Physics.gd"
 } ]
 _global_script_class_icons={
 "Easing": "",
+"logic": "",
 "physics": ""
 }
 
 [application]
 
 config/name="SlothShot"
-run/main_scene="res://src/main/main_menu.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-GlobalStream="*res://src/music/GlobalStream.tscn"
 
 [input]
 

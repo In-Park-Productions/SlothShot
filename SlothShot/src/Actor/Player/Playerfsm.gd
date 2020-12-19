@@ -1,23 +1,21 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
-var facing
-var direction_faced:float
-var elasped_angle:float=0.0
 
 #state stuff
+
 class drag:
+	const tween_sine=Tween.TRANS_SINE
+	const EASE_IN_OUT=Tween.EASE_IN_OUT
 	var dragging:bool=false
-	var current_mouse_length=0.0 setget set_current_mouse_length
-	var previous_mouse_length=0.0
-	enum {short,long}
-	var mode=short
-	var anim="Short"
-	func set_current_mouse_length(value:Vector2)->void:
-		current_mouse_length=value.length()
-		current_mouse_length=clamp(current_mouse_length,0.0,200.0)
-
-
-
+	var anim:String="Short"
+	var current_mouse_position:Vector2=Vector2() 
+	var last_mouse_position:Vector2=Vector2()
+	var diffrence:float=0.0
+	enum{short,long}
+	var current_mode=short
+	enum {short_check,long_check}
+	var check
+	var backward
 
 func _init():
 	states={
@@ -37,8 +35,7 @@ onready var drag_state=drag.new()
 
 
 func _ready():
-	drag_state.set_current_mouse_length(Vector2(20,20))
-	#facing=parent.calculatefacing(direction_faced)
+	current_state=states[1]
 	pass
 
 func state_logic(delta):
@@ -47,6 +44,7 @@ func state_logic(delta):
 	if !drag_state.dragging:
 		on_mousebutton_released()
 	check_dragging_released()
+
 func transition(delta):
 	return null
 
@@ -66,9 +64,7 @@ func _exit_state(_new_state,_old_state):
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton && event.button_index==BUTTON_LEFT:
-		print("Hi")
 		drag_state.dragging=true
-
 
 func check_dragging_released():
 	if Input.is_action_just_released("Click"):
@@ -76,52 +72,90 @@ func check_dragging_released():
 
 func on_mousebutton_pressed():
 	parent.previous_mouse_position=Vector2()
-	parent.drag_vector=parent.global_position-parent.get_global_mouse_position()
+	var diffrence_mouse_poisiton:Vector2=parent.global_position-parent.get_global_mouse_position()
+	parent.drag_vector=diffrence_mouse_poisiton
 	parent.drag_vector=parent.drag_vector.clamped(100)
 	rotate_sloth()
-	animate_according_to_mouse_position(parent.global_position-parent.get_global_mouse_position())
+	Animatate_sloth_acording_to_mouse_position(diffrence_mouse_poisiton)
 
 func on_mousebutton_released():
 	parent.previous_mouse_position=parent.get_local_mouse_position()
 	parent.previous_mouse_position=parent.previous_mouse_position.clamped(100)
 
 func rotate_sloth():
-	var rotation=(parent.global_position-parent.get_global_mouse_position()).angle()
-	parent.rotation=lerp_angle(parent.rotation,rotation,0.1)
-	parent.rotation=clamp(parent.rotation,-1.20,1.20)
-
-func animate_according_to_mouse_position(mouse_position:Vector2):
-	drag_state.set_current_mouse_length(mouse_position)
-	if drag_state.current_mouse_length!=drag_state.previous_mouse_length:
-		drag_state.previous_mouse_length=drag_state.current_mouse_length
-		animate_sloth(drag_state.current_mouse_length,physics.calculate_facing(mouse_position))
-	elif drag_state.current_mouse_length==drag_state.previous_mouse_length:
-		parent.animation_player.stop(false)
-
-func animate_sloth(current_length:float,facing_and_mouse:Array):
-	var signum_mouse_position=facing_and_mouse[0]
-	var facing_front=facing_and_mouse[1]
-	print(facing_front)
-	var mouse_position=facing_and_mouse[2]
-	var value = current_length*signum_mouse_position*0.5
-	var desired_value=value if value>0 else 0
-	print(desired_value)
-	if desired_value>=20 && desired_value <50:
-		drag_state.anim="Short"
-	elif desired_value>50:
-		drag_state.anim="Long"
-	else:
-		parent.animation_player.stop()
-	parent.animation_player.play("Dragged_"+drag_state.anim,-1,1.0,false) 
+	var temp=parent.global_position-parent.get_global_mouse_position()
+	var rotation=(temp).angle() if temp.x>0 else parent.rotation
+	var tween = Tween.new()
+	parent.add_child(tween)
+	tween.interpolate_property(parent,"rotation",parent.rotation,rotation,0.1,drag_state.tween_sine,drag_state.EASE_IN_OUT)
+	tween.start()
 
 func Todo():
 	#TODO:Complete player animation
-	#TODO:FUCKING KILL ME PLEASE
 	#HACK:Do it Just Do it 
 	pass
 
+func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
+	drag_state.diffrence=calculate_facing(parent.get_local_mouse_position())
+	
+	if drag_state.diffrence==1:
+		drag_state.backward=false
+	elif drag_state.diffrence==-1:
+		drag_state.backward=true
+	else:
+		drag_state.backward=null
+
+	if drag_state.backward==false:
+		parent.animation_player.play("Dragged_"+drag_state.anim)
+	elif drag_state.backward==true:
+		parent.animation_player.play_backwards("Dragged_"+drag_state.anim)
+	else:
+		parent.animation_player.stop(false)
 
 
+	match drag_state.check:
+		drag_state.short_check:
+			if drag_state.diffrence==1:
+				drag_state.anim="Short"
+				drag_state.check="_"
+			else:
+				parent.animation_player.stop(false)
+		drag_state.long_check:
+			if drag_state.diffrence==-1:
+				drag_state.anim="Short"
+				drag_state.check="_"
+			else:
+				parent.animation_player.stop(false)
+		"_":
+			pass
 
-func _on_AnimationPlayer_animation_finished(anim_name):
-	pass
+
+func calculate_facing(mouse_position:Vector2)->float:
+	drag_state.current_mouse_position=mouse_position
+	var diffrence=int(drag_state.current_mouse_position.x-drag_state.last_mouse_position.x)
+	drag_state.last_mouse_position=drag_state.current_mouse_position
+	return sign(-diffrence)
+
+
+#calls in animation_player(Drag_state)
+func on_short_finished():
+	if drag_state.diffrence==1:
+		drag_state.anim="Long"
+	else:
+		drag_state.anim="Short"
+
+func on_long_finished():
+	if drag_state.anim=="Long"&&drag_state.diffrence==1:
+		drag_state.check=drag_state.long_check
+
+func on_long_start():
+	if drag_state.diffrence==-1:
+		drag_state.backward=true
+		drag_state.anim="Short"
+	else:
+		drag_state.anim="Long"
+		drag_state.backward=false
+
+func on_short_start():
+	if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
+		drag_state.check=drag_state.short

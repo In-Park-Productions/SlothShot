@@ -23,8 +23,4 @@ static func calculate_projectile(Body,speed:float,drag_vector:Vector2,local_mous
 	
 	return [final_velocity,time_of_flight]
 
-static func calculate_facing(mouse_position:Vector2)->Array:
-	var value=sign(mouse_position.x)
-	var facing_front=true if value>0 else false
-	var Mouse_position=mouse_position
-	return [value,facing_front,Mouse_position]
+#this is the physic of projectile i made 
