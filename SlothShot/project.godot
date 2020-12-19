@@ -35,6 +35,9 @@ _global_script_class_icons={
 config/name="SlothShot"
 config/icon="res://icon.png"
 
+[autoload]
+GlobalStream="*res://src/music/GlobalStream.tscn"
+
 [input]
 
 Click={

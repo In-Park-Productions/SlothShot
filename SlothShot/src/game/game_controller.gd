@@ -30,8 +30,13 @@ onready var eagleprefab = preload("res://src/actors/eagle.tscn")
 onready var vineprefab = preload("res://src/actors/vine.tscn")
 onready var foregroundprefab = preload("res://src/actors/foreground.tscn")
 
+onready var GlobalStream = get_node("/root/GlobalStream")
+
 func _ready():
 	# Initiate scenes
+	
+	# TODO: Assign Global Stream stream to appropriate track
+	GlobalStream.stop()
 	var uinode = get_node("./UI")
 	uinode.add_child(gameuiprefab.instance())
 	var worldnode = get_node("./World")

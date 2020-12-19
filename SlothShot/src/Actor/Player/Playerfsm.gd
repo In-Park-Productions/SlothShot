@@ -92,7 +92,6 @@ func rotate_sloth():
 
 func Todo():
 	#TODO:Complete player animation
-	#HACK:Do it Just Do it 
 	pass
 
 func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
