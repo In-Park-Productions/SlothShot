@@ -15,7 +15,6 @@ onready var raycasts:Node2D=get_node("Body/Raycast")
 onready var tween:Tween=get_node("Body/Tween")
 onready var animated_sprite:AnimatedSprite=get_node("Body/AnimatedSprite")
 
-
 func _on_Player_time_flight_instanciated(time_of_flight):
 	yield(get_tree().create_timer(time_of_flight),"timeout")
 
