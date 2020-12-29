@@ -41,11 +41,11 @@ func Swim():
 ## i tired with global_mouse_position() and local mouse_position() it doesnt work much so i chose to use length as y axis
 
 func calculate_trajectory(Mouse_position:Vector2,air_resistance:float=0.0,facing:float=1.0)->Array:
-	#takes mouse postion as a argument it takes the length of a point from mouse position with respetive to player center (node) 
+	#takes mouse postion as an argument it takes the length of a point from mouse position with respetive to player center (node) 
 	#and take x componet( i mean the mouseposition) and put that to length//1000 this cleary gives value of y axis
 	#value beetween 0 to 0.6(since i clamped it) and calculates the projectile using the formula
 	#takes the length
-	
+#	
 	var mouse_length=Mouse_position.length()
 	mouse_length=clamp(mouse_length,0.0,600)
 	#normalising the mouse position gives the direction

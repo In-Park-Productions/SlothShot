@@ -33,6 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SlothShot"
+run/main_scene="res://src/game/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]

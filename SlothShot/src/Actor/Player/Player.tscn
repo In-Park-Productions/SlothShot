@@ -6,27 +6,27 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 204, 65, 51 )
+region = Rect2( 195, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 255, 65, 51 )
+region = Rect2( 260, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 255, 65, 51 )
+region = Rect2( 325, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 255, 65, 51 )
+region = Rect2( 0, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 0, 65, 51 )
+region = Rect2( 65, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 0, 65, 51 )
+region = Rect2( 130, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
@@ -106,71 +106,66 @@ region = Rect2( 390, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 204, 65, 51 )
+region = Rect2( 390, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 204, 65, 51 )
+region = Rect2( 0, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 204, 65, 51 )
+region = Rect2( 65, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 153, 65, 51 )
+region = Rect2( 130, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 153, 65, 51 )
+region = Rect2( 65, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 153, 65, 51 )
+region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 153, 65, 51 )
+region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 153, 65, 51 )
+region = Rect2( 65, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 153, 65, 51 )
+region = Rect2( 130, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 204, 65, 51 )
+region = Rect2( 195, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 204, 65, 51 )
+region = Rect2( 260, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 204, 65, 51 )
+region = Rect2( 325, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 65, 51 )
+region = Rect2( 390, 153, 65, 51 )
 
 [sub_resource type="SpriteFrames" id=39]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "Falling",
+"name": "Landing_Vertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
-"name": "Dead",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "IdleVertical",
+"name": "Landing_Horizontal",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
@@ -185,22 +180,27 @@ animations = [ {
 }, {
 "frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
-"name": "Landing_Horizontal",
+"name": "Falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"frames": [ SubResource( 29 ) ],
 "loop": true,
-"name": "Launched",
+"name": "Dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
-"name": "Landing_Vertical",
+"name": "IdleVertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 38 ) ],
+"frames": [ SubResource( 32 ) ],
 "loop": true,
 "name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
+"loop": true,
+"name": "Launched",
 "speed": 5.0
 } ]
 

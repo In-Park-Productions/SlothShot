@@ -22,13 +22,13 @@ var nexteagle = 0.0
 var nextforeground = 0.0
 var nextvine = 0.0
 
-onready var gameoveruiprefab = preload("res://src/game/game_overui.tscn")
-onready var gameuiprefab = preload("res://src/game/game_ui.tscn")
-onready var gameworldprefab = preload("res://src/game/game_world.tscn")
-onready var jaguarprefab = preload("res://src/actors/jaguar.tscn")
-onready var eagleprefab = preload("res://src/actors/eagle.tscn")
-onready var vineprefab = preload("res://src/actors/vine.tscn")
-onready var foregroundprefab = preload("res://src/actors/foreground.tscn")
+onready var gameoveruiprefab = preload("res://src/game/Game_OverUI.tscn")
+onready var gameuiprefab = preload("res://src/game/GameUI.tscn")
+onready var gameworldprefab = preload("res://src/game/Game_World.tscn")
+onready var jaguarprefab = preload("res://src/actor/enemy/Jaguar.tscn")
+onready var eagleprefab = preload("res://src/actor/enemy/Eagle.tscn")
+onready var vineprefab = preload("res://src/actor/enemy/Vine.tscn")
+onready var foregroundprefab = preload("res://src/actor/enemy/Foreground.tscn")
 
 onready var GlobalStream = get_node("/root/GlobalStream")
 
