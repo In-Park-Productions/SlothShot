@@ -8,26 +8,9 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node",
-"class": "Easing",
-"language": "GDScript",
-"path": "res://Easing/Easing.gd"
-}, {
-"base": "Node",
-"class": "logic",
-"language": "GDScript",
-"path": "res://Logic/Logic_stupid.gd"
-}, {
-"base": "Node",
-"class": "physics",
-"language": "GDScript",
-"path": "res://Physics/Physics.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"Easing": "",
-"logic": "",
-"physics": ""
+
 }
 
 [application]
