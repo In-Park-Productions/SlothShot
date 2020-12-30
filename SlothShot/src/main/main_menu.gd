@@ -15,7 +15,7 @@ func TestButton_Pressed():
 
 func _ready():
 
-	if !GlobalStream.playing:
-		GlobalStream.stream = load("res://src/music/Marimba Fast -- Loopable.ogg")
-		GlobalStream.play()
+#	if !GlobalStream.playing:
+#		GlobalStream.stream = load("res://src/music/Marimba Fast -- Loopable.ogg")
+#		GlobalStream.play()
 	pass
