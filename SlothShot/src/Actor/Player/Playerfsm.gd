@@ -1,6 +1,9 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
 
+
+
+
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
 # are declared under ready function like  onready var a=a_class.new()
 # dragclass
@@ -23,12 +26,18 @@ class drag:
 	var check
 	# determines the animation to play backwards if true it will be back or else it will go front
 	var backward
+	#tracks the length
+	var length
+
 # this class uses launch_state variables
 class launched:
 	#keeps the track of mouseposition and it stores it under this variable 
 	var mouse_position:Vector2=Vector2()
+	var local_mouse_position:Vector2=Vector2()
 	enum{launched,not_launched}
 	var mode=not_launched
+	var stop:bool=false
+	var launch_anim="Long"
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -44,6 +53,7 @@ func _init():
 onready var drag_state=drag.new()
 onready var launch_state=launched.new()
 
+
 func _ready()->void:
 	#intial state starts with idle
 	current_state=states[1]
@@ -57,7 +67,7 @@ func state_logic(delta)->void:
 	if current_state in ["Launched"]:
 			on_mousebutton_released()
 			if launch_state.mode==launch_state.launched:
-				calculate_the_trajectory()
+				on_launch_state_finished()
 	#check for dragging it tiggers transition
 	check_dragging_released()
 
@@ -70,24 +80,34 @@ func transition(delta):
 				return states[3]
 		"Dragged":
 			# if its released it goes to launch to other state launch
-			if !drag_state.dragging:
-				return states[2]
+			if !drag_state.dragging :
+				if drag_state.length>100:
+					return states[2]
+				else:
+					return states[1]
 		"Launched":
-				return null
-			
+					pass
 	return null
 
 func _enter_state(_old_state,_new_state):
+	var anim="Idle"
 	match _new_state:
-		'_':
+		"Idle":
+			anim="IdleVertical"
+		"_":
 			pass
-
+	if current_state in ["Idle"]:
+		parent.animation_player.play(anim)
 
 func _exit_state(_new_state,_old_state):
 	match _old_state:
 		"_":
 			pass
 
+func _unhandled_input(event):
+	if current_state in ["Launched"]:
+		if event.is_action_pressed("E"):
+			Engine.time_scale=0.1
 
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
@@ -104,6 +124,7 @@ func check_dragging_released()->void:
 # proceeds to state if its pressed
 func on_mousebutton_pressed()->void:
 	var diffrence_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
+	drag_state.length=(diffrence_mouse_position).length()
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
@@ -111,9 +132,10 @@ func on_mousebutton_pressed()->void:
 # it falls under multiple states
 func on_mousebutton_released()->void:
 	# if the sloth is not launched it will calculate the mouse position and send that parameter to
-	# cakculate trajectory function
+	# caculate trajectory function
 	if launch_state.mode==launch_state.not_launched:
 		launch_state.mouse_position =parent.global_position-parent.get_global_mouse_position()
+		launch_state.local_mouse_position=parent.get_local_mouse_position()
 		launch_state.mode=launch_state.launched
 
 # roates the sloth according to the mouse positons and added tweening to get smooth turn than lerping 
@@ -126,22 +148,19 @@ func rotate_sloth()->void:
 	tween.interpolate_property(parent,"rotation",parent.rotation,rotation,0.1,drag_state.tween_sine,drag_state.EASE_IN_OUT)
 	tween.start()
 
-func Todo():
-	#TODO:Launch animation
-	pass
 #animates the sloth
 func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	# calculates the direction of sloth if the mouse moves forward it will gives true if back false else it will 
 	# give null
 	calculate_diffrence(mouse_position)
-	# returns dragstate according to the diffrence
+	# returns dragstate according to the diffrence 
 	if drag_state.diffrence==1:
 		drag_state.backward=false
 	elif drag_state.diffrence==-1:
 		drag_state.backward=true
 	else:
 		drag_state.backward=null
-#if its backwards it will play back or it will play forward else it will stop the animation
+	#if its backwards it will play back or it will play forward else it will stop the animation
 	if drag_state.backward==false:
 		parent.animation_player.play("Dragged_"+drag_state.anim)
 	elif drag_state.backward==true:
@@ -176,7 +195,7 @@ func calculate_diffrence(mouse_position:Vector2)->void:
 	drag_state.diffrence=sign(diffrence)
 
 
-#calls in animation_player(Drag_state)
+#calls in animation_player(Drag_state) and during launch state too
 # short note it is called inside the animation player
 # it trrigers after the animation check for the  animation and sets the animation
 func on_short_finished()->void:
@@ -189,24 +208,44 @@ func on_short_finished()->void:
 func on_long_finished()->void:
 	if drag_state.anim=="Long"&&drag_state.diffrence==1:
 		drag_state.check=drag_state.long_check
+	if current_state in ["Launched"]:
+		launch_state.launch_anim="Short"
 
 # it does stuffs when it starts check for diffrence and sets the animation
 func on_long_start()->void:
-	if drag_state.diffrence==-1:
-		drag_state.anim="Short"
-	elif drag_state.diffrence==1:
-		drag_state.anim="Long"
+	if current_state in ["Dragged"]:
+		if drag_state.diffrence==-1:
+			drag_state.anim="Short"
+		elif drag_state.diffrence==1:
+			drag_state.anim="Long"
 
 # same as long start 
+
 func on_short_start()->void:
-	if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
-		drag_state.check=drag_state.short_check
-
-
+	if current_state in ["Dragged","Idle"]:
+		if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
+			drag_state.check=drag_state.short_check
+			launch_state.stop=false
+	elif current_state in ["Launched"]:
+		launch_state.stop=true
 
 
 #it works under Launched state 
 # calculates the trajectory after itss fires this function is called in player
+func on_launch_state_finished():
+	if !launch_state.stop:
+		parent.animation_player.play_backwards("Dragged_"+launch_state.launch_anim)
+	else:
+		parent.animation_player.stop(false)
+		parent.animation_player.play("Launched_Start")
+		var a=calculate_the_trajectory()
+
+
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
-		parent. apply_velocity(launch_state.mouse_position,parent.LaunchVelocity)
+		parent.apply_velocity(launch_state.mouse_position,parent.LaunchVelocity)
+
+
+func Todo():
+	#Todo: lauch_animation
+	pass
