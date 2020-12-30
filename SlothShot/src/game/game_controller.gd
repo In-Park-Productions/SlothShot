@@ -22,13 +22,13 @@ var nexteagle = 0.0
 var nextforeground = 0.0
 var nextvine = 0.0
 
-onready var gameoveruiprefab = preload("res://src/game/Game_OverUI.tscn")
-onready var gameuiprefab = preload("res://src/game/GameUI.tscn")
-onready var gameworldprefab = preload("res://src/game/Game_World.tscn")
-onready var jaguarprefab = preload("res://src/actor/enemy/Jaguar.tscn")
-onready var eagleprefab = preload("res://src/actor/enemy/Eagle.tscn")
-onready var vineprefab = preload("res://src/actor/enemy/Vine.tscn")
-onready var foregroundprefab = preload("res://src/actor/enemy/Foreground.tscn")
+onready var gameoveruiprefab = preload("res://src/game/game_overui.tscn")
+onready var gameuiprefab = preload("res://src/game/gameui.tscn")
+onready var gameworldprefab = preload("res://src/game/game_world.tscn")
+# onready var jaguarprefab = preload("res://src/actors/jaguar.tscn")
+# onready var eagleprefab = preload("res://src/actors/eagle.tscn")
+# onready var vineprefab = preload("res://src/actors/vine.tscn")
+# onready var foregroundprefab = preload("res://src/actors/foreground.tscn")
 
 onready var GlobalStream = get_node("/root/GlobalStream")
 
@@ -96,7 +96,7 @@ func game_over():
 	isrunning = false
 	
 func end_game():
-	get_tree().change_scene("res://src/main/main_menu.tsch")
+	get_tree().change_scene("res://src/main/main_menu.tscn")
 	
 	if score > highscore:
 		highscore = score

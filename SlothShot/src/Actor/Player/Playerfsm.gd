@@ -237,7 +237,7 @@ func on_launch_state_finished():
 		parent.animation_player.play_backwards("Dragged_"+launch_state.launch_anim)
 	else:
 		parent.animation_player.stop(false)
-		parent.animation_player.play("Launched_Start")
+		parent.animation_player.play("Launched_Mid")
 		var a=calculate_the_trajectory()
 
 
