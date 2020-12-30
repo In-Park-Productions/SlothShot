@@ -20,10 +20,10 @@ position = Vector2( 307.421, 47.877 )
 position = Vector2( 393.095, 251.984 )
 
 [node name="Platform4" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 511.528, 143.631 )
+position = Vector2( 544.528, 181.631 )
 
 [node name="Platform5" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 655.159, 55.4364 )
+position = Vector2( 685.159, 94.4364 )
 
 [node name="Platform6" parent="Platforms" instance=ExtResource( 3 )]
 position = Vector2( 713.115, 362.857 )
