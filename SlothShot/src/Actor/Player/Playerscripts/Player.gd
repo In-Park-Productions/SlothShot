@@ -16,7 +16,6 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var raycasts:Node2D=get_node("Body/Raycast")
-onready var animated_sprite:AnimatedSprite=get_node("Body/AnimatedSprite")
 
 
 
@@ -68,7 +67,7 @@ func calculate_trajectory(Mouse_position:Vector2,air_resistance:float=0.0,facing
 	return [final_velocity,time_of_flight]
 
 
-func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->float:
+func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	#i used it because i wanna call it as a single function in state machine script.
 	#it gets the vaule of parameter here mouse postion will be declared in state machine and it also determine the 
 	#facing of the sloth
@@ -88,8 +87,10 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->float:
 		#creats the time and after it finishes it changes to decend mode
 		yield(get_tree().create_timer(time_of_flight),"timeout")
 		mode=decend
+
 	elif mode==decend:
 		#applies gravity
 		LaunchVelocity.y+=Gravity*get_physics_process_delta_time()
 		LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)
-	return time_of_flight
+
+

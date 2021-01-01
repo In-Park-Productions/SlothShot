@@ -66,13 +66,15 @@ func state_logic(delta)->void:
 		on_mousebutton_pressed()
 	if current_state in ["Launched"]:
 			on_mousebutton_released()
-			if launch_state.mode==launch_state.launched:
-				on_launch_state_finished()
+			if ! launch_state.stop:
+				parent.animation_player.play("Dragged_"+launch_state.launch_anim)
+			else:
+				calculate_the_trajectory()
 	#check for dragging it tiggers transition
 	check_dragging_released()
 
 func transition(delta):
-	#transition from one state to other take place with its unique ability 
+	# transition from one state to other take place with its unique ability 
 	match current_state:
 		"Idle":
 			#if its dragging it transit to drag state
@@ -94,7 +96,7 @@ func _enter_state(_old_state,_new_state):
 	match _new_state:
 		"Idle":
 			anim="IdleVertical"
-		"_":
+		"Launched":
 			pass
 	if current_state in ["Idle"]:
 		parent.animation_player.play(anim)
@@ -129,6 +131,8 @@ func on_mousebutton_pressed()->void:
 	rotate_sloth()
 	#animates the sloth according to the mouse position
 	Animatate_sloth_acording_to_mouse_position(diffrence_mouse_position)
+
+
 # it falls under multiple states
 func on_mousebutton_released()->void:
 	# if the sloth is not launched it will calculate the mouse position and send that parameter to
@@ -148,7 +152,8 @@ func rotate_sloth()->void:
 	tween.interpolate_property(parent,"rotation",parent.rotation,rotation,0.1,drag_state.tween_sine,drag_state.EASE_IN_OUT)
 	tween.start()
 
-#animates the sloth
+
+# animates the sloth
 func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	# calculates the direction of sloth if the mouse moves forward it will gives true if back false else it will 
 	# give null
@@ -186,7 +191,8 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 			pass
 
 
-#calculates the diffrence and sets the diffrence sign of mouse position 
+
+# calculates the diffrence and sets the diffrence sign of mouse position 
 func calculate_diffrence(mouse_position:Vector2)->void:
 	drag_state.current_mouse_position=mouse_position
 	var diffrence=int(drag_state.current_mouse_position.x-drag_state.last_mouse_position.x)
@@ -195,7 +201,8 @@ func calculate_diffrence(mouse_position:Vector2)->void:
 	drag_state.diffrence=sign(diffrence)
 
 
-#calls in animation_player(Drag_state) and during launch state too
+
+# calls in animation_player(Drag_state) and during launch state too
 # short note it is called inside the animation player
 # it trrigers after the animation check for the  animation and sets the animation
 func on_short_finished()->void:
@@ -208,8 +215,6 @@ func on_short_finished()->void:
 func on_long_finished()->void:
 	if drag_state.anim=="Long"&&drag_state.diffrence==1:
 		drag_state.check=drag_state.long_check
-	if current_state in ["Launched"]:
-		launch_state.launch_anim="Short"
 
 # it does stuffs when it starts check for diffrence and sets the animation
 func on_long_start()->void:
@@ -218,9 +223,10 @@ func on_long_start()->void:
 			drag_state.anim="Short"
 		elif drag_state.diffrence==1:
 			drag_state.anim="Long"
+	if current_state in ["Launched"]:
+		launch_state.launch_anim="Short"
 
 # same as long start 
-
 func on_short_start()->void:
 	if current_state in ["Dragged","Idle"]:
 		if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
@@ -230,20 +236,21 @@ func on_short_start()->void:
 		launch_state.stop=true
 
 
-#it works under Launched state 
+
+# it works under Launched state 
 # calculates the trajectory after itss fires this function is called in player
-func on_launch_state_finished():
-	if !launch_state.stop:
-		parent.animation_player.play_backwards("Dragged_"+launch_state.launch_anim)
-	else:
-		parent.animation_player.stop(false)
-		parent.animation_player.play("Launched_Mid")
-		var a=calculate_the_trajectory()
-
-
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
 		parent.apply_velocity(launch_state.mouse_position,parent.LaunchVelocity)
+	var mode = "Start" 
+	if parent.mode==parent.assend:
+		mode="Mid"
+	elif parent.mode==parent.decend:
+		mode="fall"
+	if parent.animation_player.current_animation !=mode:
+		parent.animation_player.play("Launched_"+mode)
+func back_to_idle():
+	pass
 
 
 func Todo():
