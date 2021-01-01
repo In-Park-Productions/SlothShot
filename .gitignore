@@ -8,4 +8,5 @@ export_presets.cfg
 .mono/
 data_*/
 
-
+# Zishan-specific ignores
+startGodotInSourceFolder.bat

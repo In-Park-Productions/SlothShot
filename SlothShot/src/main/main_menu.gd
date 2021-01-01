@@ -1,5 +1,5 @@
 extends Node2D
-onready var transiton:Node2D=get_node("Tranisition")
+# onready var transiton:Node2D=get_node("Tranisition")
 export(String) var game_scene
 
 onready var GlobalStream = get_node("/root/GlobalStream")
@@ -11,7 +11,7 @@ func QuitButton_Pressed():
 	get_tree().quit()
 
 func TestButton_Pressed():
-	get_tree().change_scene("res://src/tests/Test.tscn")
+	get_tree().change_scene("res://src/testing.tscn")
 
 func _ready():
 
