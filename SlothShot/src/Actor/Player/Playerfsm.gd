@@ -107,7 +107,6 @@ func _exit_state(_new_state,_old_state):
 			pass
 
 func _unhandled_input(event):
-	if current_state in ["Launched"]:
 		if event.is_action_pressed("E"):
 			Engine.time_scale=0.1
 
@@ -166,12 +165,13 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	else:
 		drag_state.backward=null
 	#if its backwards it will play back or it will play forward else it will stop the animation
-	if drag_state.backward==false:
-		parent.animation_player.play("Dragged_"+drag_state.anim)
-	elif drag_state.backward==true:
-		parent.animation_player.play_backwards("Dragged_"+drag_state.anim)
-	else:
-		parent.animation_player.stop(false)
+	if parent.animation_player.current_animation!=drag_state.anim:
+		if drag_state.backward==false:
+			parent.animation_player.play("Dragged_"+drag_state.anim)
+		elif drag_state.backward==true:
+			parent.animation_player.play_backwards("Dragged_"+drag_state.anim)
+		else:
+			parent.animation_player.stop(false)
 
 # check for dragging and transitions to other animation
 	match drag_state.check:
@@ -223,7 +223,7 @@ func on_long_start()->void:
 			drag_state.anim="Short"
 		elif drag_state.diffrence==1:
 			drag_state.anim="Long"
-	if current_state in ["Launched"]:
+	if current_state in ["Launched"]&&launch_state.launch_anim=="Long":
 		launch_state.launch_anim="Short"
 
 # same as long start 
@@ -249,8 +249,6 @@ func calculate_the_trajectory()->void:
 		mode="fall"
 	if parent.animation_player.current_animation !=mode:
 		parent.animation_player.play("Launched_"+mode)
-func back_to_idle():
-	pass
 
 
 func Todo():

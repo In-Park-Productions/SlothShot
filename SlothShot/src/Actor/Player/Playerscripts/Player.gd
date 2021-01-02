@@ -20,13 +20,18 @@ onready var raycasts:Node2D=get_node("Body/Raycast")
 
 
 
-func check_for_collision():
+func check_for_collision()->bool:
 	for raycast in raycasts:
 		if raycast.is_colliding():
 			return true
 	return false
 
-
+func enable_raycast()->void:
+	for raycast in raycasts:
+		if !raycast.enabled:
+			raycast.enable=true
+		else:
+			return
 #furure functions 
 func Fight():
 	yield(animation_player,"animation_finished")
