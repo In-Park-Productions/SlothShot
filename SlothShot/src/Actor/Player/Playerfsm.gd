@@ -38,13 +38,18 @@ class launched:
 	var mode=not_launched
 	var stop:bool=false
 	var launch_anim="Long"
+class landing:
+	var can_land=false
+	var speed:float=100
+	var gravity:float
+	var move_direction
 func _init():
 	# you declare state under the main fsm 
 	states={
 		1:"Idle",
 		2:"Launched",
 		3:"Dragged",
-		4:"Fight",
+		4:"Fall",
 		5:"Dead"
 	}
 
@@ -52,7 +57,7 @@ func _init():
 #getiing classes
 onready var drag_state=drag.new()
 onready var launch_state=launched.new()
-
+onready var land_state=landing.new()
 
 func _ready()->void:
 	#intial state starts with idle
@@ -62,17 +67,30 @@ func _ready()->void:
 func state_logic(delta)->void:
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
 	# or condition 
+	if current_state in ["Idle"]:
+		parent.mode=parent.assend
+		launch_state.mode=launch_state.not_launched
 	if current_state in ["Dragged"]:
 		on_mousebutton_pressed()
 	if current_state in ["Launched"]:
-			on_mousebutton_released()
-			if ! launch_state.stop:
-				parent.animation_player.play("Dragged_"+launch_state.launch_anim)
-			else:
-				calculate_the_trajectory()
+		on_mousebutton_released()
+		if ! launch_state.stop:
+			parent.animation_player.play("Dragged_"+launch_state.launch_anim)
+		else:
+			calculate_the_trajectory()
+	if current_state in ["Fall"]:
+		calculate_the_trajectory()
+		var collision=parent.check_for_collision()
+		if collision:
+			check_for_landing()
 	#check for dragging it tiggers transition
 	check_dragging_released()
-
+	trriger_condition()
+func trriger_condition():
+	var ray_disabled=false if current_state in ["Fall"] else true
+	parent.enable_raycast(ray_disabled)
+	var drag_area_disabled=false if current_state in ["Idle","Dragged"] else true
+	parent.drag_area_collision=drag_area_disabled
 func transition(delta):
 	# transition from one state to other take place with its unique ability 
 	match current_state:
@@ -88,7 +106,11 @@ func transition(delta):
 				else:
 					return states[1]
 		"Launched":
-					pass
+			if parent.mode==parent.decend:
+				return states[4]
+		"Fall":
+			if parent.mode==parent.Idle:
+				return states[1]
 	return null
 
 func _enter_state(_old_state,_new_state):
@@ -98,8 +120,11 @@ func _enter_state(_old_state,_new_state):
 			anim="IdleVertical"
 		"Launched":
 			pass
-	if current_state in ["Idle"]:
+		"Land":
+			anim="Landing_Vertical"
+	if current_state in ["Idle","Land"]:
 		parent.animation_player.play(anim)
+
 
 func _exit_state(_new_state,_old_state):
 	match _old_state:
@@ -250,6 +275,9 @@ func calculate_the_trajectory()->void:
 	if parent.animation_player.current_animation !=mode:
 		parent.animation_player.play("Launched_"+mode)
 
+func check_for_landing():
+	if parent.mode!=parent.Idle:
+		parent.mode=parent.Idle
 
 func Todo():
 	#Todo: lauch_animation

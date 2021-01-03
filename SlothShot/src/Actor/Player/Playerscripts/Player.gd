@@ -8,7 +8,7 @@ const Weight:float=0.4
 #determines launch velocity 
 var LaunchVelocity:Vector2=Vector2() 
 #divided in to 2 modes one body assends and then other part it decends
-enum{assend,decend}
+enum{assend,decend,Idle}
 var mode=assend
 
 #cast nodes
@@ -16,22 +16,23 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var raycasts:Node2D=get_node("Body/Raycast")
-
-
+onready var drag_area_collision:CollisionShape2D=get_node("Body/Drag_area/Drag_Area/CollisionShape2D")
 
 
 func check_for_collision()->bool:
-	for raycast in raycasts:
+	for raycast in raycasts.get_children():
 		if raycast.is_colliding():
 			return true
 	return false
 
-func enable_raycast()->void:
-	for raycast in raycasts:
-		if !raycast.enabled:
-			raycast.enable=true
+func enable_raycast(disabled:bool=false)->void:
+	for raycast in raycasts.get_children():
+		if disabled==false:
+			if !raycast.enabled:
+				raycast.enabled=true
 		else:
-			return
+			if raycast.enabled:
+				raycast.enabled=false
 #furure functions 
 func Fight():
 	yield(animation_player,"animation_finished")
@@ -76,7 +77,8 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	#i used it because i wanna call it as a single function in state machine script.
 	#it gets the vaule of parameter here mouse postion will be declared in state machine and it also determine the 
 	#facing of the sloth
-	
+
+
 	#it calculates the trajectory and has a value as a array
 	var return_array:Array=calculate_trajectory(mouse_position,0.0,sign(mouse_position.x))
 	#gets the value from physics  and gets final velocity
@@ -85,6 +87,7 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	var time_of_flight:float=return_array[1]
 	#here i made 2 type of mode one assends it gets the velocity it applies that velocity upto time of flight period
 	#after that it decends due to gravity
+	print(velocity)
 	if mode==assend:
 		#assgins the velocity to lauch velocity
 		LaunchVelocity=velocity
@@ -92,7 +95,6 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 		#creats the time and after it finishes it changes to decend mode
 		yield(get_tree().create_timer(time_of_flight),"timeout")
 		mode=decend
-
 	elif mode==decend:
 		#applies gravity
 		LaunchVelocity.y+=Gravity*get_physics_process_delta_time()
