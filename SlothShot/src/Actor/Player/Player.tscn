@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://src/Spritres/spr_sloth_mama.png" type="Texture" id=1]
 [ext_resource path="res://src/Actor/Player/Playerscripts/Player.gd" type="Script" id=2]
@@ -6,31 +6,31 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 204, 65, 51 )
+region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 255, 65, 51 )
+region = Rect2( 390, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 255, 65, 51 )
+region = Rect2( 0, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 255, 65, 51 )
+region = Rect2( 65, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 0, 65, 51 )
+region = Rect2( 130, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 0, 65, 51 )
+region = Rect2( 65, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 204, 65, 51 )
+region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
@@ -158,22 +158,32 @@ region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="SpriteFrames" id=39]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "Dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "IdleVertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "Landing_Horizontal",
 "speed": 5.0
@@ -421,7 +431,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=46]
-length = 0.7
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -441,10 +451,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2 ]
+"values": [ 1, 2 ]
 }
 
 [sub_resource type="CapsuleShape2D" id=47]
@@ -608,7 +618,10 @@ tracks/3/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=51]
-extents = Vector2( 8.75347, 17.9364 )
+extents = Vector2( 8.75347, 19.4521 )
+
+[sub_resource type="RectangleShape2D" id=52]
+extents = Vector2( 24.2869, 15.3427 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
@@ -626,7 +639,7 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Body"]
 position = Vector2( 0.264877, 0 )
 frames = SubResource( 39 )
-animation = "Dragged_short"
+animation = "Dragged_Long"
 offset = Vector2( -12, -9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
@@ -641,18 +654,25 @@ anims/Launched_Mid = SubResource( 48 )
 anims/Launched_Start = SubResource( 49 )
 anims/Launched_fall = SubResource( 50 )
 
-[node name="otherelements" type="Node2D" parent="Body"]
-
 [node name="Tween" type="Tween" parent="Body"]
 
-[node name="Drag_area" type="Node2D" parent="Body"]
+[node name="Areas" type="Node2D" parent="Body"]
 
-[node name="Drag_Area" type="Area2D" parent="Body/Drag_area"]
+[node name="Drag_Area" type="Area2D" parent="Body/Areas"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Drag_area/Drag_Area"]
-position = Vector2( -22.8836, -0.714981 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Drag_Area"]
+position = Vector2( -23.8847, -0.714981 )
 scale = Vector2( 2.75826, 0.880652 )
 shape = SubResource( 51 )
+
+[node name="Land_Area" type="Area2D" parent="Body/Areas"]
+visible = false
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Land_Area"]
+position = Vector2( -22.8592, -1.00113 )
+shape = SubResource( 52 )
 
 [node name="Raycast" type="Node2D" parent="Body"]
 position = Vector2( -9.63392, 1.96217 )
@@ -693,4 +713,5 @@ position = Vector2( -0.150031, -1.12169 )
 shape = SubResource( 47 )
 disabled = true
 [connection signal="input_event" from="." to="PlayerFSM" method="_on_Player_input_event"]
-[connection signal="input_event" from="Body/Drag_area/Drag_Area" to="PlayerFSM" method="_on_Drag_Area_input_event"]
+[connection signal="input_event" from="Body/Areas/Drag_Area" to="PlayerFSM" method="_on_Drag_Area_input_event"]
+[connection signal="area_entered" from="Body/Areas/Land_Area" to="PlayerFSM" method="_on_Land_Area_area_entered"]
