@@ -19,8 +19,8 @@ class drag:
 	var current_mouse_position:Vector2=Vector2() 
 	# last mouse position
 	var last_mouse_position:Vector2=Vector2()
-	# diffrence of last mouse position and current one
-	var diffrence:float=0.0
+	# difference of last mouse position and current one
+	var difference:float=0.0
 	# check are for checking the anmation after the end of animation
 	enum {short_check,long_check}
 	var check
@@ -95,12 +95,13 @@ func transition(delta):
 	# transition from one state to other take place with its unique ability 
 	match current_state:
 		"Idle":
-			#if its dragging it transit to drag state
+			#if mouse is dragging object transition object state to "Dragged"
 			if drag_state.dragging:
-				return states[3]
+				return states[3] # 3 = Dragged
 		"Dragged":
-			# if its released it goes to launch to other state launch
+			# if object is released from Dragged state
 			if !drag_state.dragging :
+				# While distance 
 				if drag_state.length>100:
 					return states[2]
 				else:
@@ -149,12 +150,12 @@ func check_dragging_released()->void:
 
 # proceeds to state if its pressed
 func on_mousebutton_pressed()->void:
-	var diffrence_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
-	drag_state.length=(diffrence_mouse_position).length()
+	var difference_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
+	drag_state.length=(difference_mouse_position).length()
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
-	Animatate_sloth_acording_to_mouse_position(diffrence_mouse_position)
+	Animatate_sloth_acording_to_mouse_position(difference_mouse_position)
 
 
 # it falls under multiple states
@@ -181,11 +182,11 @@ func rotate_sloth()->void:
 func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	# calculates the direction of sloth if the mouse moves forward it will gives true if back false else it will 
 	# give null
-	calculate_diffrence(mouse_position)
-	# returns dragstate according to the diffrence 
-	if drag_state.diffrence==1:
+	calculate_difference(mouse_position)
+	# returns dragstate according to the difference 
+	if drag_state.difference==1:
 		drag_state.backward=false
-	elif drag_state.diffrence==-1:
+	elif drag_state.difference==-1:
 		drag_state.backward=true
 	else:
 		drag_state.backward=null
@@ -201,13 +202,13 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 # check for dragging and transitions to other animation
 	match drag_state.check:
 		drag_state.short_check:
-			if drag_state.diffrence==1:
+			if drag_state.difference==1:
 				drag_state.anim="Short"
 				drag_state.check="_"
 			else:
 				parent.animation_player.stop(false)
 		drag_state.long_check:
-			if drag_state.diffrence==-1&&drag_state.anim=="Long":
+			if drag_state.difference==-1&&drag_state.anim=="Long":
 				drag_state.anim="Short"
 				drag_state.check="_"
 			else:
@@ -217,13 +218,13 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 
 
 
-# calculates the diffrence and sets the diffrence sign of mouse position 
-func calculate_diffrence(mouse_position:Vector2)->void:
+# calculates the difference and sets the difference sign of mouse position 
+func calculate_difference(mouse_position:Vector2)->void:
 	drag_state.current_mouse_position=mouse_position
-	var diffrence=int(drag_state.current_mouse_position.x-drag_state.last_mouse_position.x)
+	var difference=int(drag_state.current_mouse_position.x-drag_state.last_mouse_position.x)
 	yield(get_tree(),"physics_frame")
 	drag_state.last_mouse_position=drag_state.current_mouse_position
-	drag_state.diffrence=sign(diffrence)
+	drag_state.difference=sign(difference)
 
 
 
@@ -231,22 +232,22 @@ func calculate_diffrence(mouse_position:Vector2)->void:
 # short note it is called inside the animation player
 # it trrigers after the animation check for the  animation and sets the animation
 func on_short_finished()->void:
-	if drag_state.diffrence==-1:
+	if drag_state.difference==-1:
 		drag_state.anim="Short"
-	elif drag_state.diffrence==1:
+	elif drag_state.difference==1:
 		drag_state.anim="Long"
 
 # it does things after long its being checked with match condition
 func on_long_finished()->void:
-	if drag_state.anim=="Long"&&drag_state.diffrence==1:
+	if drag_state.anim=="Long"&&drag_state.difference==1:
 		drag_state.check=drag_state.long_check
 
-# it does stuffs when it starts check for diffrence and sets the animation
+# it does stuffs when it starts check for difference and sets the animation
 func on_long_start()->void:
 	if current_state in ["Dragged"]:
-		if drag_state.diffrence==-1:
+		if drag_state.difference==-1:
 			drag_state.anim="Short"
-		elif drag_state.diffrence==1:
+		elif drag_state.difference==1:
 			drag_state.anim="Long"
 	if current_state in ["Launched"]&&launch_state.launch_anim=="Long":
 		launch_state.launch_anim="Short"
@@ -254,7 +255,7 @@ func on_long_start()->void:
 # same as long start 
 func on_short_start()->void:
 	if current_state in ["Dragged","Idle"]:
-		if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
+		if drag_state.anim=="Short"&&(drag_state.difference==-1 || drag_state.difference==0):
 			drag_state.check=drag_state.short_check
 			launch_state.stop=false
 	elif current_state in ["Launched"]:
