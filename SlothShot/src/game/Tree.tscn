@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://src/game/Tree.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.6358, 52.6126 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 65.2126
 
 [node name="Tree" type="Node2D" groups=[
 "Trees",
 ]]
 position = Vector2( -0.749146, 0 )
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.502816, 3.08859 )
@@ -21,3 +26,11 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="Idle"]
 position = Vector2( -0.396202, -49.0755 )
 shape = SubResource( 1 )
+
+[node name="Landarea" type="Area2D" parent="."]
+collision_layer = 2147484160
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Landarea"]
+position = Vector2( -0.26947, -41.4532 )
+shape = SubResource( 2 )

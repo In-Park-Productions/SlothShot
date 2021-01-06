@@ -16,7 +16,6 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var raycasts:Node2D=get_node("Body/Raycast")
-onready var drag_area_collision:CollisionShape2D=get_node("Body/Drag_area/Drag_Area/CollisionShape2D")
 
 
 func check_for_collision()->bool:
@@ -87,7 +86,6 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	var time_of_flight:float=return_array[1]
 	#here i made 2 type of mode one assends it gets the velocity it applies that velocity upto time of flight period
 	#after that it decends due to gravity
-	print(velocity)
 	if mode==assend:
 		#assgins the velocity to lauch velocity
 		LaunchVelocity=velocity
@@ -99,5 +97,4 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 		#applies gravity
 		LaunchVelocity.y+=Gravity*get_physics_process_delta_time()
 		LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)
-
 

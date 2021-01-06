@@ -38,11 +38,10 @@ class launched:
 	var mode=not_launched
 	var stop:bool=false
 	var launch_anim="Long"
+
 class landing:
 	var can_land=false
-	var speed:float=100
-	var gravity:float
-	var move_direction
+
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -50,7 +49,7 @@ func _init():
 		2:"Launched",
 		3:"Dragged",
 		4:"Fall",
-		5:"Dead"
+		5:"Land"
 	}
 
 
@@ -65,32 +64,32 @@ func _ready()->void:
 	pass
 
 func state_logic(delta)->void:
+	if parent.LaunchVelocity==Vector2(0,0)&&!drag_state.dragging:
+		print("Idle")
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
 	# or condition 
 	if current_state in ["Idle"]:
 		parent.mode=parent.assend
 		launch_state.mode=launch_state.not_launched
+		land_state.can_land=false
 	if current_state in ["Dragged"]:
 		on_mousebutton_pressed()
 	if current_state in ["Launched"]:
 		on_mousebutton_released()
-		if ! launch_state.stop:
-			parent.animation_player.play("Dragged_"+launch_state.launch_anim)
-		else:
-			calculate_the_trajectory()
-	if current_state in ["Fall"]:
 		calculate_the_trajectory()
+	if current_state in ["Land"]:
 		var collision=parent.check_for_collision()
 		if collision:
-			check_for_landing()
+			on_landing()
+
+	if current_state in ["Fall","Land"]:
+		calculate_the_trajectory()
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
 func trriger_condition():
-	var ray_disabled=false if current_state in ["Fall"] else true
+	var ray_disabled=false if current_state in ["Fall","Land"] else true
 	parent.enable_raycast(ray_disabled)
-	var drag_area_disabled=false if current_state in ["Idle","Dragged"] else true
-	parent.drag_area_collision=drag_area_disabled
 func transition(delta):
 	# transition from one state to other take place with its unique ability 
 	match current_state:
@@ -101,14 +100,14 @@ func transition(delta):
 		"Dragged":
 			# if its released it goes to launch to other state launch
 			if !drag_state.dragging :
-				if drag_state.length>100:
-					return states[2]
-				else:
-					return states[1]
+				return states[2]
 		"Launched":
 			if parent.mode==parent.decend:
 				return states[4]
 		"Fall":
+			if land_state.can_land:
+				return states[5]
+		"Land":
 			if parent.mode==parent.Idle:
 				return states[1]
 	return null
@@ -253,32 +252,37 @@ func on_long_start()->void:
 
 # same as long start 
 func on_short_start()->void:
-	if current_state in ["Dragged","Idle"]:
+	if current_state in ["Dragged"]:
 		if drag_state.anim=="Short"&&(drag_state.diffrence==-1 || drag_state.diffrence==0):
 			drag_state.check=drag_state.short_check
-			launch_state.stop=false
-	elif current_state in ["Launched"]:
-		launch_state.stop=true
-
-
 
 # it works under Launched state 
 # calculates the trajectory after itss fires this function is called in player
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
 		parent.apply_velocity(launch_state.mouse_position,parent.LaunchVelocity)
-	var mode = "Start" 
-	if parent.mode==parent.assend:
-		mode="Mid"
-	elif parent.mode==parent.decend:
-		mode="fall"
-	if parent.animation_player.current_animation !=mode:
-		parent.animation_player.play("Launched_"+mode)
+	if current_state in ["Fall","Launched"]:
+		var mode = "Start" 
+		if parent.mode==parent.assend:
+			mode="Mid"
+		elif parent.mode==parent.decend:
+			mode="fall"
+		if parent.animation_player.current_animation !=mode:
+			parent.animation_player.play("Launched_"+mode)
 
-func check_for_landing():
+func on_landing():
 	if parent.mode!=parent.Idle:
 		parent.mode=parent.Idle
+
+func _on_Land_Area_area_entered(area):
+	var parent=area.get_parent()
+	if parent.is_in_group("Trees"):
+		land_state.can_land=true
+
+
 
 func Todo():
 	#Todo: lauch_animation
 	pass
+
+
