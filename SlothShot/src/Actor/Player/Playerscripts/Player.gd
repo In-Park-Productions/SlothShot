@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 #constants
 const speed:float=400.0
-const Gravity:float=500.0
+const Gravity:float=650.0
 const Weight:float=0.4
 
 #determines launch velocity 
@@ -38,7 +38,6 @@ func Fight():
 	pass
 func Swim():
 	pass
-
 
 
 ## small note before continuing i made this thing dependent of length because i want it to increase as distance increases 
@@ -93,8 +92,4 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 		#creats the time and after it finishes it changes to decend mode
 		yield(get_tree().create_timer(time_of_flight),"timeout")
 		mode=decend
-	elif mode==decend:
-		#applies gravity
-		LaunchVelocity.y+=Gravity*get_physics_process_delta_time()
-		LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)
 

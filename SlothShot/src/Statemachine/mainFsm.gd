@@ -7,9 +7,7 @@ var states={}
 var current_state 
 var previous_state=null
 
-func _ready():
-	if current_state !=null:
-		_enter_state(previous_state,current_state) 
+
 
 
 func _physics_process(delta):
