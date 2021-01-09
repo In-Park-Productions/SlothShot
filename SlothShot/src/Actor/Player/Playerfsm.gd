@@ -47,7 +47,8 @@ class Idle:
 
 class dead:
 	var is_dead=false 
-
+	var bunp_velocity:float=-100
+	var dead_bump=false
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -65,13 +66,20 @@ onready var drag_state=drag.new()
 onready var launch_state=launched.new()
 onready var land_state=landing.new()
 onready var idle_state=Idle.new()
+onready var dead_state=dead.new()
+
 func _ready()->void:
 	#intial state starts with idle
 	current_state=states[1]
 
+
 func state_logic(delta)->void:
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
 	# or condition 
+	
+	if current_state in ["Launched","Fall","Land","Dead"]:
+		parent.apply_movements()
+	
 	if current_state in ["Idle"]:
 		parent.mode=parent.assend
 		launch_state.mode=launch_state.not_launched
@@ -90,10 +98,13 @@ func state_logic(delta)->void:
 			land_state.is_in_tree=true
 
 	if current_state in ["Fall","Land"]:
-		parent.LaunchVelocity.y+=parent.Gravity*delta
-		parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
+	if current_state in ["Dead"]:
+		#add a small bump
+		on_dead()
+		pass
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
@@ -101,6 +112,8 @@ func state_logic(delta)->void:
 
 
 func trriger_condition():
+	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
+	# at Land,Idle,Dragged
 	var ray_disabled=false if current_state in ["Land","Idle","Dragged"] else true
 	parent.enable_raycast(ray_disabled)
 
@@ -115,6 +128,8 @@ func transition(delta):
 				return states[3] # 3 = Dragged
 			if ! idle_state.is_colliding:
 				return states[4]
+			if dead_state.is_dead:
+				return states[6]
 		"Dragged":
 			# if object is released from Dragged state
 			if !drag_state.dragging:
@@ -125,12 +140,18 @@ func transition(delta):
 		"Launched":
 			if parent.mode==parent.decend:
 				return states[4]
+			if dead_state.is_dead:
+				return states[6]
 		"Fall":
 			if land_state.can_land:
 				return states[5]
+			if dead_state.is_dead:
+				return states[6]
 		"Land":
 			if parent.mode==parent.Idle:
 				return states[1]
+			if dead_state.is_dead:
+				return states[6]
 	return null
 
 
@@ -146,13 +167,15 @@ func _enter_state(_old_state,_new_state):
 			anim="Fall"
 		"Land":
 			anim="Landing_Horizontal"
-	if parent.animation_player.current_animation!= anim && current_state in ["Idle","Fall","Land","Launched"]:
+		"Dead":
+			anim="Dead"
+	if parent.animation_player.current_animation!= anim && current_state in ["Idle","Fall","Land","Launched","Dead"]:
 		parent.animation_player.play(anim)
 
 
 func _exit_state(_new_state,_old_state):
 	match _old_state:
-		"_":
+		'_':
 			pass
 
 func _unhandled_input(event):
@@ -304,11 +327,6 @@ func on_short_start()->void:
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
 		parent.apply_velocity(launch_state.mouse_position,parent.LaunchVelocity)
-		var mode = "Start" 
-		if parent.mode==parent.assend:
-			mode="Mid"
-		if parent.animation_player.current_animation !=mode:
-			parent.animation_player.play("Launched_"+mode)
 
 
 
@@ -316,17 +334,25 @@ func on_landing():
 	if parent.mode!=parent.Idle:
 		parent.mode=parent.Idle
 
-
+func on_dead():
+	parent.rotation=0.0
+	if parent.is_on_floor()&& !dead_state.dead_bump:
+		parent.LaunchVelocity.y+=parent.Gravity
+		parent.LaunchVelocity.x=lerp(parent.LaunchVelocity.x,0,1)
 
 func _on_Land_Area_area_entered(area):
 	var parent=area.get_parent()
-	if parent.is_in_group("Trees")&& current_state in ["Fall"]:
+	if parent.is_in_group("Trees") && current_state in ["Fall"]:
 		land_state.can_land=true
 
 
 func Todo():
-	# TODO: lauch_animation
-	# TODO: add the non idle condition 
+	# TODO: Bounce while dieing
 	pass
 
 
+func on_hurt_box_enters_the_ground_or_enemy(body):
+	# it need to trigger death when the player hits the ground it will send
+	# the signal to the land_state and it fires the death condtion
+	if current_state != "Dead":
+		dead_state.is_dead=true

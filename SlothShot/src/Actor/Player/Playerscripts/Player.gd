@@ -88,8 +88,10 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	if mode==assend:
 		#assgins the velocity to lauch velocity
 		LaunchVelocity=velocity
-		LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)
 		#creats the time and after it finishes it changes to decend mode
 		yield(get_tree().create_timer(time_of_flight),"timeout")
 		mode=decend
 
+
+func apply_movements():
+	LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)

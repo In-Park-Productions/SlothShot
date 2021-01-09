@@ -14,8 +14,8 @@ func _physics_process(delta):
 	state_logic(delta)
 	var state=transition(delta)
 	if state!=null:
-		print(state)
 		previous_state=current_state
+		print(previous_state)
 		current_state=state
 		_enter_state(previous_state,current_state)
 		_exit_state(current_state,previous_state)
