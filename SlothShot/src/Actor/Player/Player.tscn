@@ -6,31 +6,31 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 204, 65, 51 )
+region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 255, 65, 51 )
+region = Rect2( 65, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 255, 65, 51 )
+region = Rect2( 130, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 65, 51 )
+region = Rect2( 195, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 204, 65, 51 )
+region = Rect2( 390, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 204, 65, 51 )
+region = Rect2( 0, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 0, 65, 51 )
+region = Rect2( 65, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
@@ -154,22 +154,22 @@ region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="SpriteFrames" id=38]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "Falling",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Landing_Horizontal",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Falling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": false,
 "name": "Dragged_short",
 "speed": 5.0
@@ -302,8 +302,32 @@ tracks/2/keys = {
 "method": "on_short_finished"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("../CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -10.0721, 0.69591 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
-[sub_resource type="Animation" id=49]
+[sub_resource type="Animation" id=41]
 resource_name = "Fall"
 length = 0.2
 loop = true
@@ -356,8 +380,32 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( -0.150031, -1.12169 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Areas/Land_Area/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.0773048, -0.710099 ) ]
+}
 
-[sub_resource type="Animation" id=41]
+[sub_resource type="Animation" id=42]
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -383,8 +431,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=42]
-resource_name = "IdleVertical"
+[sub_resource type="Animation" id=43]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -410,9 +457,56 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0, 1 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -10.0721, 0.69591 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Areas/Land_Area/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -9.49986, 0.848973 ) ]
+}
 
-[sub_resource type="Animation" id=43]
-resource_name = "Landing_Horizontal"
+[sub_resource type="Animation" id=44]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -438,9 +532,44 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0, 1, 2 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("../CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Areas/Land_Area/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -18.5202, 4.74665 ), Vector2( -10.168, 1.85124 ), Vector2( -10.6135, 1.85124 ) ]
+}
 
-[sub_resource type="Animation" id=44]
-resource_name = "Landing_Idle"
+[sub_resource type="Animation" id=45]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -468,7 +597,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=45]
+[sub_resource type="Animation" id=46]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -495,11 +624,11 @@ tracks/1/keys = {
 "values": [ 1, 2 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=46]
+[sub_resource type="CapsuleShape2D" id=47]
 radius = 5.74451
 height = 7.57936
 
-[sub_resource type="Animation" id=47]
+[sub_resource type="Animation" id=48]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -548,10 +677,34 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 46 ) ]
+"values": [ SubResource( 47 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2.9551, 4.0671 ), Vector2( -2.9551, 4.0671 ) ]
 }
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id=49]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -601,6 +754,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( -16.6128, 2.99401 ), Vector2( -10.0651, 3.36816 ), Vector2( -4.07865, 4.11647 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="RectangleShape2D" id=50]
 extents = Vector2( 8.75347, 19.4521 )
@@ -613,7 +778,6 @@ radius = 8.87917
 ]]
 scale = Vector2( 2, 2 )
 collision_layer = 4
-collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="PlayerFSM" type="Node" parent="."]
@@ -622,22 +786,22 @@ script = ExtResource( 3 )
 [node name="Body" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Body"]
-position = Vector2( 0.311702, 0.0701523 )
+position = Vector2( 0.311702, 0.158541 )
 frames = SubResource( 38 )
-animation = "IdleVertical"
+animation = "Falling"
 offset = Vector2( -12, -9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 anims/Dragged_Long = SubResource( 39 )
 anims/Dragged_Short = SubResource( 40 )
-anims/Fall = SubResource( 49 )
-anims/Idle = SubResource( 41 )
-anims/IdleVertical = SubResource( 42 )
-anims/Landing_Horizontal = SubResource( 43 )
-anims/Landing_Idle = SubResource( 44 )
-anims/Landing_Vertical = SubResource( 45 )
-anims/Launched_Mid = SubResource( 47 )
-anims/Launched_Start = SubResource( 48 )
+anims/Fall = SubResource( 41 )
+anims/Idle = SubResource( 42 )
+anims/IdleVertical = SubResource( 43 )
+anims/Landing_Horizontal = SubResource( 44 )
+anims/Landing_Idle = SubResource( 45 )
+anims/Landing_Vertical = SubResource( 46 )
+anims/Launched_Mid = SubResource( 48 )
+anims/Launched_Start = SubResource( 49 )
 
 [node name="Tween" type="Tween" parent="Body"]
 
@@ -646,6 +810,7 @@ anims/Launched_Start = SubResource( 48 )
 [node name="Drag_Area" type="Area2D" parent="Body/Areas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Drag_Area"]
+visible = false
 position = Vector2( -23.8847, -0.714981 )
 scale = Vector2( 2.75826, 0.880652 )
 shape = SubResource( 50 )
@@ -655,7 +820,7 @@ collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Land_Area"]
-position = Vector2( -12.4237, 2.95975 )
+position = Vector2( 0.0773048, -0.710099 )
 shape = SubResource( 51 )
 
 [node name="Raycast" type="Node2D" parent="Body"]
@@ -663,25 +828,7 @@ position = Vector2( -9.63392, 1.96217 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Body/Raycast"]
 position = Vector2( 3.4, -1.88775 )
-scale = Vector2( 0.2, 0.2 )
-enabled = true
-cast_to = Vector2( 10, 0 )
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D3" type="RayCast2D" parent="Body/Raycast"]
-position = Vector2( 3.4, -2.91784 )
-scale = Vector2( 0.2, 0.2 )
-enabled = true
-cast_to = Vector2( 10, 0 )
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D4" type="RayCast2D" parent="Body/Raycast"]
-position = Vector2( 3.4, 0.453354 )
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.5, 0.2 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 2
@@ -690,7 +837,25 @@ collide_with_bodies = false
 
 [node name="RayCast2D2" type="RayCast2D" parent="Body/Raycast"]
 position = Vector2( 3.4, -0.766897 )
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.5, 0.2 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D3" type="RayCast2D" parent="Body/Raycast"]
+position = Vector2( 3.4, -2.91784 )
+scale = Vector2( 0.5, 0.2 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D4" type="RayCast2D" parent="Body/Raycast"]
+position = Vector2( 3.4, 0.453354 )
+scale = Vector2( 0.5, 0.2 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 2
@@ -698,9 +863,8 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( -0.150031, -1.12169 )
-shape = SubResource( 46 )
+shape = SubResource( 47 )
 [connection signal="input_event" from="." to="PlayerFSM" method="_on_Player_input_event"]
 [connection signal="input_event" from="Body/Areas/Drag_Area" to="PlayerFSM" method="_on_Drag_Area_input_event"]
 [connection signal="area_entered" from="Body/Areas/Land_Area" to="PlayerFSM" method="_on_Land_Area_area_entered"]

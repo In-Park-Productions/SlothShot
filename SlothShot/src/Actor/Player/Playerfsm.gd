@@ -40,9 +40,13 @@ class launched:
 
 class landing:
 	var can_land=false
+	var is_in_tree=true
 
 class Idle:
 	var is_colliding=false
+
+class dead:
+	var is_dead=false 
 
 func _init():
 	# you declare state under the main fsm 
@@ -51,7 +55,8 @@ func _init():
 		2:"Launched",
 		3:"Dragged",
 		4:"Fall",
-		5:"Land"
+		5:"Land",
+		6:"Dead"
 	}
 
 
@@ -80,12 +85,15 @@ func state_logic(delta)->void:
 	
 	if current_state in ["Land"]:
 		var collision=parent.check_for_collision()
-		if collision:
+		if collision && !land_state.is_in_tree:
 			on_landing()
+			land_state.is_in_tree=true
 
 	if current_state in ["Fall","Land"]:
 		parent.LaunchVelocity.y+=parent.Gravity*delta
 		parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+		if current_state in ["Fall"]:
+			land_state.is_in_tree=false
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
@@ -110,7 +118,7 @@ func transition(delta):
 		"Dragged":
 			# if object is released from Dragged state
 			if !drag_state.dragging:
-				if  drag_state.length>100:
+				if  drag_state.length>75:
 					return states[2]
 				else:
 					return states[1]
@@ -149,7 +157,7 @@ func _exit_state(_new_state,_old_state):
 
 func _unhandled_input(event):
 		if event.is_action_pressed("E"):
-			Engine.time_scale=0.1
+			Engine.time_scale=0.01
 
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
@@ -253,6 +261,7 @@ func calculate_difference(mouse_position:Vector2)->void:
 # short note it is called inside the animation player
 # it trrigers after the animation check for the  animation and sets the animation
 
+
 func on_short_finished()->void:
 	if drag_state.difference==-1:
 		drag_state.anim="Short"
@@ -266,6 +275,7 @@ func on_short_finished()->void:
 func on_long_finished()->void:
 	if drag_state.anim=="Long"&&drag_state.difference==1:
 		drag_state.check=drag_state.long_check
+
 
 
 # it does stuffs when it starts check for difference and sets the animation
@@ -310,9 +320,8 @@ func on_landing():
 
 func _on_Land_Area_area_entered(area):
 	var parent=area.get_parent()
-	if parent.is_in_group("Trees"):
+	if parent.is_in_group("Trees")&& current_state in ["Fall"]:
 		land_state.can_land=true
-
 
 
 func Todo():
