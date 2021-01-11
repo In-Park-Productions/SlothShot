@@ -15,24 +15,25 @@ var mode=assend
 onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
-onready var raycasts:Node2D=get_node("Body/Raycast")
+onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
 
 
 func check_for_collision()->bool:
-	for raycast in raycasts.get_children():
+	for raycast in land_raycasts.get_children():
 		if raycast.is_colliding():
 			return true
 	return false
 
 func enable_raycast(disabled:bool=false)->void:
-	for raycast in raycasts.get_children():
+	for raycast in land_raycasts.get_children():
 		if disabled==false:
 			if !raycast.enabled:
 				raycast.enabled=true
 		else:
 			if raycast.enabled:
 				raycast.enabled=false
-#furure functions 
+
+#future functions 
 func Fight():
 	yield(animation_player,"animation_finished")
 	pass
@@ -94,4 +95,5 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 
 
 func apply_movements():
-	LaunchVelocity=move_and_slide(LaunchVelocity,Vector2.UP)
+	var Collision=move_and_collide(LaunchVelocity*get_physics_process_delta_time())
+	return Collision

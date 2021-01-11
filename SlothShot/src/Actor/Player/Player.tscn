@@ -11,147 +11,147 @@ region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 204, 65, 51 )
+region = Rect2( 65, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 255, 65, 51 )
+region = Rect2( 130, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 255, 65, 51 )
+region = Rect2( 195, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 0, 65, 51 )
+region = Rect2( 390, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 0, 65, 51 )
+region = Rect2( 0, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 0, 65, 51 )
+region = Rect2( 65, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 0, 65, 51 )
+region = Rect2( 65, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 51, 65, 51 )
+region = Rect2( 130, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 51, 65, 51 )
+region = Rect2( 195, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 51, 65, 51 )
+region = Rect2( 260, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 51, 65, 51 )
+region = Rect2( 325, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 51, 65, 51 )
+region = Rect2( 390, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 51, 65, 51 )
+region = Rect2( 195, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 51, 65, 51 )
+region = Rect2( 260, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 153, 65, 51 )
+region = Rect2( 325, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 153, 65, 51 )
+region = Rect2( 0, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 153, 65, 51 )
+region = Rect2( 65, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 153, 65, 51 )
+region = Rect2( 130, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 153, 65, 51 )
+region = Rect2( 195, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 153, 65, 51 )
+region = Rect2( 260, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 204, 65, 51 )
+region = Rect2( 325, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 204, 65, 51 )
+region = Rect2( 390, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 204, 65, 51 )
+region = Rect2( 0, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 102, 65, 51 )
+region = Rect2( 130, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 102, 65, 51 )
+region = Rect2( 65, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 102, 65, 51 )
+region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 102, 65, 51 )
+region = Rect2( 260, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 102, 65, 51 )
+region = Rect2( 325, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 102, 65, 51 )
+region = Rect2( 390, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 102, 65, 51 )
+region = Rect2( 0, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 153, 65, 51 )
+region = Rect2( 65, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 255, 65, 51 )
+region = Rect2( 130, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 0, 65, 51 )
+region = Rect2( 195, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 0, 65, 51 )
+region = Rect2( 260, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 204, 65, 51 )
+region = Rect2( 325, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 204, 65, 51 )
+region = Rect2( 390, 51, 65, 51 )
 
 [sub_resource type="SpriteFrames" id=38]
 animations = [ {
@@ -162,46 +162,46 @@ animations = [ {
 }, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
+"name": "Landing_Horizontal",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
 "name": "Falling",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
-"loop": false,
-"name": "Dragged_short",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "Launched",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "Landing_Vertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": false,
 "name": "Dragged_Long",
 "speed": 7.0
 }, {
-"frames": [ SubResource( 33 ) ],
+"frames": [ SubResource( 25 ) ],
 "loop": true,
 "name": "Dead",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 34 ), SubResource( 35 ) ],
+"frames": [ SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
 "name": "IdleVertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Landing_Horizontal",
+"frames": [ SubResource( 4 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"loop": false,
+"name": "Dragged_short",
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=53]
+[sub_resource type="Animation" id=39]
 resource_name = "Dead"
 length = 0.1
 tracks/0/type = "value"
@@ -253,8 +253,7 @@ tracks/3/keys = {
 "values": [ Vector2( -0.15, -3.122 ) ]
 }
 
-[sub_resource type="Animation" id=39]
-resource_name = "Dragged_Long"
+[sub_resource type="Animation" id=40]
 length = 0.35
 step = 0.05
 tracks/0/type = "value"
@@ -311,7 +310,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="Animation" id=41]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -380,8 +379,7 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=41]
-resource_name = "Fall"
+[sub_resource type="Animation" id=42]
 length = 0.2
 loop = true
 step = 0.05
@@ -470,7 +468,7 @@ tracks/6/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=42]
+[sub_resource type="Animation" id=43]
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -496,7 +494,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=43]
+[sub_resource type="Animation" id=44]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -583,7 +581,7 @@ tracks/6/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=44]
+[sub_resource type="Animation" id=45]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -616,10 +614,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
@@ -657,8 +655,20 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("../CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -11.2869, -1.00068 ) ]
+}
 
-[sub_resource type="Animation" id=45]
+[sub_resource type="Animation" id=46]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -686,7 +696,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=46]
+[sub_resource type="Animation" id=47]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -713,11 +723,11 @@ tracks/1/keys = {
 "values": [ 1, 2 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=47]
+[sub_resource type="CapsuleShape2D" id=48]
 radius = 8.29884
 height = 8.26838
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id=49]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -766,7 +776,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 47 ) ]
+"values": [ SubResource( 48 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Areas/Land_Area/CollisionShape2D:disabled")
@@ -805,7 +815,7 @@ tracks/6/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=49]
+[sub_resource type="Animation" id=50]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -868,13 +878,13 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="RectangleShape2D" id=50]
+[sub_resource type="RectangleShape2D" id=51]
 extents = Vector2( 8.75347, 19.4521 )
 
-[sub_resource type="CircleShape2D" id=51]
+[sub_resource type="CircleShape2D" id=52]
 radius = 8.87917
 
-[sub_resource type="CapsuleShape2D" id=52]
+[sub_resource type="CapsuleShape2D" id=53]
 radius = 7.87701
 height = 15.1866
 
@@ -893,21 +903,22 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Body"]
 position = Vector2( 0.311702, 0.158541 )
 frames = SubResource( 38 )
-animation = "Dead"
+animation = "Falling"
+frame = 2
 offset = Vector2( -12, -9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
-anims/Dead = SubResource( 53 )
-anims/Dragged_Long = SubResource( 39 )
-anims/Dragged_Short = SubResource( 40 )
-anims/Fall = SubResource( 41 )
-anims/Idle = SubResource( 42 )
-anims/IdleVertical = SubResource( 43 )
-anims/Landing_Horizontal = SubResource( 44 )
-anims/Landing_Idle = SubResource( 45 )
-anims/Landing_Vertical = SubResource( 46 )
-anims/Launched_Mid = SubResource( 48 )
-anims/Launched_Start = SubResource( 49 )
+anims/Dead = SubResource( 39 )
+anims/Dragged_Long = SubResource( 40 )
+anims/Dragged_Short = SubResource( 41 )
+anims/Fall = SubResource( 42 )
+anims/Idle = SubResource( 43 )
+anims/IdleVertical = SubResource( 44 )
+anims/Landing_Horizontal = SubResource( 45 )
+anims/Landing_Idle = SubResource( 46 )
+anims/Landing_Vertical = SubResource( 47 )
+anims/Launched_Mid = SubResource( 49 )
+anims/Launched_Start = SubResource( 50 )
 
 [node name="Tween" type="Tween" parent="Body"]
 
@@ -917,9 +928,9 @@ anims/Launched_Start = SubResource( 49 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Drag_Area"]
 visible = false
-position = Vector2( -23.8847, -0.714981 )
-scale = Vector2( 2.75826, 0.880652 )
-shape = SubResource( 50 )
+position = Vector2( -17.5207, -0.18465 )
+scale = Vector2( 2, 1 )
+shape = SubResource( 51 )
 
 [node name="Land_Area" type="Area2D" parent="Body/Areas"]
 collision_layer = 0
@@ -928,12 +939,15 @@ collision_mask = 512
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Areas/Land_Area"]
 visible = false
 position = Vector2( 0.0773048, -0.710099 )
-shape = SubResource( 51 )
+shape = SubResource( 52 )
 
 [node name="Raycast" type="Node2D" parent="Body"]
 position = Vector2( -9.63392, 1.96217 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Body/Raycast"]
+[node name="Land_raycast" type="Node2D" parent="Body/Raycast"]
+visible = false
+
+[node name="RayCast2D" type="RayCast2D" parent="Body/Raycast/Land_raycast"]
 position = Vector2( 3.4, -1.88775 )
 scale = Vector2( 0.5, 0.2 )
 enabled = true
@@ -942,7 +956,7 @@ collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="RayCast2D2" type="RayCast2D" parent="Body/Raycast"]
+[node name="RayCast2D2" type="RayCast2D" parent="Body/Raycast/Land_raycast"]
 position = Vector2( 3.4, -0.766897 )
 scale = Vector2( 0.5, 0.2 )
 enabled = true
@@ -951,7 +965,7 @@ collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="RayCast2D3" type="RayCast2D" parent="Body/Raycast"]
+[node name="RayCast2D3" type="RayCast2D" parent="Body/Raycast/Land_raycast"]
 position = Vector2( 3.4, -2.91784 )
 scale = Vector2( 0.5, 0.2 )
 enabled = true
@@ -960,7 +974,7 @@ collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="RayCast2D4" type="RayCast2D" parent="Body/Raycast"]
+[node name="RayCast2D4" type="RayCast2D" parent="Body/Raycast/Land_raycast"]
 position = Vector2( 3.4, 0.453354 )
 scale = Vector2( 0.5, 0.2 )
 enabled = true
@@ -975,16 +989,15 @@ collide_with_bodies = false
 collision_layer = 8
 
 [node name="CollisionShape2D" parent="Body/Hit_and_hurt_box/Player_hurt_box" index="0"]
+visible = false
 position = Vector2( 0.157486, -2.36235 )
-shape = SubResource( 52 )
+shape = SubResource( 53 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.15, -3.122 )
-rotation = -1.5708
-shape = SubResource( 47 )
+position = Vector2( -0.150031, -1.12169 )
+shape = SubResource( 48 )
 [connection signal="input_event" from="." to="PlayerFSM" method="_on_Player_input_event"]
 [connection signal="input_event" from="Body/Areas/Drag_Area" to="PlayerFSM" method="_on_Drag_Area_input_event"]
 [connection signal="area_entered" from="Body/Areas/Land_Area" to="PlayerFSM" method="_on_Land_Area_area_entered"]
-[connection signal="body_entered" from="Body/Hit_and_hurt_box/Player_hurt_box" to="PlayerFSM" method="on_hurt_box_enters_the_ground_or_enemy"]
 
 [editable path="Body/Hit_and_hurt_box/Player_hurt_box"]

@@ -37,6 +37,10 @@ class launched:
 	var mode=not_launched
 	var stop:bool=false
 	var launch_anim="Long"
+class fall:
+	var collided_with_ground=null
+
+
 
 class landing:
 	var can_land=false
@@ -48,7 +52,6 @@ class Idle:
 class dead:
 	var is_dead=false 
 	var bunp_velocity:float=-100
-	var dead_bump=false
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -65,6 +68,7 @@ func _init():
 onready var drag_state=drag.new()
 onready var launch_state=launched.new()
 onready var land_state=landing.new()
+onready var fall_state=fall.new()
 onready var idle_state=Idle.new()
 onready var dead_state=dead.new()
 
@@ -77,9 +81,10 @@ func state_logic(delta)->void:
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
 	# or condition 
 	
-	if current_state in ["Launched","Fall","Land","Dead"]:
-		parent.apply_movements()
-	
+	if current_state in ["Launched","Fall","Land"]:
+		fall_state.collided_with_ground=parent.apply_movements()
+		if fall_state.collided_with_ground:
+			dead_state.is_dead=true
 	if current_state in ["Idle"]:
 		parent.mode=parent.assend
 		launch_state.mode=launch_state.not_launched
@@ -93,9 +98,8 @@ func state_logic(delta)->void:
 	
 	if current_state in ["Land"]:
 		var collision=parent.check_for_collision()
-		if collision && !land_state.is_in_tree:
+		if collision:
 			on_landing()
-			land_state.is_in_tree=true
 
 	if current_state in ["Fall","Land"]:
 		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
@@ -181,6 +185,8 @@ func _exit_state(_new_state,_old_state):
 func _unhandled_input(event):
 		if event.is_action_pressed("E"):
 			Engine.time_scale=0.01
+		if event.is_action_pressed("Reset"):
+			get_tree().reload_current_scene()
 
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
@@ -199,7 +205,6 @@ func check_dragging_released()->void:
 func on_mousebutton_pressed()->void:
 	var difference_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
 	drag_state.length=(difference_mouse_position).length() if difference_mouse_position.x>0 else 0.0
-	print(drag_state.length)
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
@@ -336,23 +341,18 @@ func on_landing():
 
 func on_dead():
 	parent.rotation=0.0
-	if parent.is_on_floor()&& !dead_state.dead_bump:
-		parent.LaunchVelocity.y+=parent.Gravity
-		parent.LaunchVelocity.x=lerp(parent.LaunchVelocity.x,0,1)
+	parent.LaunchVelocity=lerp(parent.LaunchVelocity,Vector2(0,0),1)
+	parent.LaunchVelocity.y+=parent.Gravity
+	parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+
 
 func _on_Land_Area_area_entered(area):
 	var parent=area.get_parent()
-	if parent.is_in_group("Trees") && current_state in ["Fall"]:
+	if parent.is_in_group("Trees"):
 		land_state.can_land=true
-
+		parent.call_deferred("when_sloth_enters_the_tree")
 
 func Todo():
 	# TODO: Bounce while dieing
 	pass
 
-
-func on_hurt_box_enters_the_ground_or_enemy(body):
-	# it need to trigger death when the player hits the ground it will send
-	# the signal to the land_state and it fires the death condtion
-	if current_state != "Dead":
-		dead_state.is_dead=true
