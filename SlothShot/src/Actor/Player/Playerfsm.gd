@@ -1,7 +1,7 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
 
-
+# K:the function on_dead() has been changed to also reset the scene.
 
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
 # are declared under ready function like  onready var a=a_class.new()
@@ -344,6 +344,9 @@ func on_dead():
 	parent.LaunchVelocity=lerp(parent.LaunchVelocity,Vector2(0,0),1)
 	parent.LaunchVelocity.y+=parent.Gravity
 	parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+	# Kabs changes
+	yield(get_tree().create_timer(1.0), "timeout") # wait time animation is complete
+	get_tree().reload_current_scene() # Reset player on death
 
 
 func _on_Land_Area_area_entered(area):
