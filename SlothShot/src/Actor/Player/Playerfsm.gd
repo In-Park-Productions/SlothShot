@@ -1,5 +1,7 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
+signal change_the_margin(enable)
+
 
 # K:the function on_dead() has been changed to also reset the scene.
 
@@ -50,9 +52,12 @@ class Idle:
 	var is_colliding=false
 
 class dead:
+	const nu=6.5
 	var is_dead=false 
-	var bunp_velocity:float=-100
 	var movement=true
+	var velocity
+	var firction=nu
+
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -81,7 +86,11 @@ func _ready()->void:
 func state_logic(delta)->void:
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
 	# or condition 
-	
+	if current_state in ["Launched","Land"]:
+		var enabled=true if current_state in ["Launched","Land"] else false
+		emit_signal("change_the_margin",enabled)
+
+
 	if current_state in ["Launched","Fall","Land"]:
 		fall_state.collided_with_ground=parent.apply_movements()
 		if fall_state.collided_with_ground:
@@ -342,18 +351,25 @@ func on_landing():
 func on_dead():
 	parent.rotation=0.0
 	if dead_state.movement:
-		parent.LaunchVelocity=lerp(parent.LaunchVelocity,parent.LaunchVelocity-Vector2(10,10),1)
+		parent.LaunchVelocity-=Vector2(dead_state.firction,dead_state.firction)
 		parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
 	if parent.LaunchVelocity.x<=0:
 		parent.LaunchVelocity=Vector2(0,0)
 		dead_state.movement=false
+
+
 func _on_Land_Area_area_entered(area):
 	var parent=area.get_parent()
 	if parent.is_in_group("Trees"):
 		land_state.can_land=true
 		parent.call_deferred("when_sloth_enters_the_tree")
 
+
 func Todo():
 	# TODO: Bounce while dieing
 	pass
 
+
+#this is done in camera of player 
+func _on_PlayerFSM_change_the_margin(enable):
+	parent.camera.drag_margin_v_enabled =enable

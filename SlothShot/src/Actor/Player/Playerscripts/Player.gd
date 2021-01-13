@@ -16,7 +16,8 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
-
+onready var camera:Camera2D=get_node("Camera/Camera2D")
+onready var camera_tween:Tween=get_node("Camera/Tween")
 
 func check_for_collision()->bool:
 	for raycast in land_raycasts.get_children():
@@ -97,3 +98,4 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 func apply_movements():
 	var Collision=move_and_collide(LaunchVelocity*get_physics_process_delta_time())
 	return Collision
+#player camera 
