@@ -52,6 +52,7 @@ class Idle:
 class dead:
 	var is_dead=false 
 	var bunp_velocity:float=-100
+	var movement=true
 func _init():
 	# you declare state under the main fsm 
 	states={
@@ -101,14 +102,13 @@ func state_logic(delta)->void:
 		if collision:
 			on_landing()
 
-	if current_state in ["Fall","Land"]:
+	if current_state in ["Fall","Land","Dead"]:
 		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
 	if current_state in ["Dead"]:
 		#add a small bump
 		on_dead()
-		pass
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
@@ -184,7 +184,7 @@ func _exit_state(_new_state,_old_state):
 
 func _unhandled_input(event):
 		if event.is_action_pressed("E"):
-			Engine.time_scale=0.01
+			Engine.time_scale=0.1
 		if event.is_action_pressed("Reset"):
 			get_tree().reload_current_scene()
 
@@ -341,11 +341,12 @@ func on_landing():
 
 func on_dead():
 	parent.rotation=0.0
-	parent.LaunchVelocity=lerp(parent.LaunchVelocity,Vector2(0,0),1)
-	parent.LaunchVelocity.y+=parent.Gravity
-	parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
-
-
+	if dead_state.movement:
+		parent.LaunchVelocity=lerp(parent.LaunchVelocity,parent.LaunchVelocity-Vector2(10,10),1)
+		parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+	if parent.LaunchVelocity.x<=0:
+		parent.LaunchVelocity=Vector2(0,0)
+		dead_state.movement=false
 func _on_Land_Area_area_entered(area):
 	var parent=area.get_parent()
 	if parent.is_in_group("Trees"):

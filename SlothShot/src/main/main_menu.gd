@@ -11,7 +11,7 @@ func QuitButton_Pressed():
 	get_tree().quit()
 
 func TestButton_Pressed():
-	get_tree().change_scene("res://src/testing.tscn")
+	get_tree().change_scene("res://Testz.tscn")
 
 func _ready():
 
