@@ -1,7 +1,7 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
 
-
+# K:the function on_dead() has been changed to also reset the scene.
 
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
 # are declared under ready function like  onready var a=a_class.new()

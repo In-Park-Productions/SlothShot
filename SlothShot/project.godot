@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SlothShot"
-run/main_scene="res://src/main/main_menu.tscn"
+run/main_scene="res://Testz.tscn"
 config/icon="res://icon.png"
 
 [autoload]
