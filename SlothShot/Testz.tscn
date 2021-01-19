@@ -45,6 +45,13 @@ position = Vector2( 420.709, 372.558 )
 [node name="Player" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( 171.053, 235.197 )
 
+[node name="AnimatedSprite" parent="Actors/Player/Body" index="0"]
+animation = "Dead"
+
+[node name="CollisionShape2D" parent="Actors/Player" index="2"]
+position = Vector2( -0.15, -3.122 )
+rotation = -1.5708
+
 [node name="Camera2D" parent="Actors/Player/Camera" index="0"]
 smoothing_speed = 6.0
 

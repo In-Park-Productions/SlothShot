@@ -57,6 +57,10 @@ class dead:
 	var movement=true
 	var velocity
 	var firction=nu
+class flip:
+	var is_fliping=false
+
+
 
 func _init():
 	# you declare state under the main fsm 
@@ -66,7 +70,8 @@ func _init():
 		3:"Dragged",
 		4:"Fall",
 		5:"Land",
-		6:"Dead"
+		6:"Dead",
+		7:"Flip"
 	}
 
 
@@ -77,6 +82,7 @@ onready var land_state=landing.new()
 onready var fall_state=fall.new()
 onready var idle_state=Idle.new()
 onready var dead_state=dead.new()
+onready var flip_state=flip.new()
 
 func _ready()->void:
 	#intial state starts with idle
@@ -91,7 +97,7 @@ func state_logic(delta)->void:
 		emit_signal("change_the_margin",enabled)
 
 
-	if current_state in ["Launched","Fall","Land"]:
+	if current_state in ["Launched","Fall","Land","Flip"]:
 		fall_state.collided_with_ground=parent.apply_movements()
 		if fall_state.collided_with_ground:
 			dead_state.is_dead=true
@@ -105,19 +111,21 @@ func state_logic(delta)->void:
 	if current_state in ["Launched"]:
 		on_mousebutton_released()
 		calculate_the_trajectory()
-	
-	if current_state in ["Land"]:
+	if current_state in ["Land","Flip"]:
 		var collision=parent.check_for_collision()
 		if collision:
 			on_landing()
-
-	if current_state in ["Fall","Land","Dead"]:
+	if current_state in ["Fall","Land","Dead","Flip"]:
 		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
 	if current_state in ["Dead"]:
 		#add a small bump
 		on_dead()
+	if current_state in ["Flip","Launched","Fall"]:
+		check_for_flip()
+	if current_state in ["Flip"]:
+		flip_physics()
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
@@ -127,7 +135,7 @@ func state_logic(delta)->void:
 func trriger_condition():
 	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
 	# at Land,Idle,Dragged
-	var ray_disabled=false if current_state in ["Land","Idle","Dragged"] else true
+	var ray_disabled=false if current_state in ["Land","Idle","Dragged","Flip"] else true
 	parent.enable_raycast(ray_disabled)
 
 
@@ -139,9 +147,9 @@ func transition(delta):
 			#if mouse is dragging object transition object state to "Dragged"
 			if drag_state.dragging:
 				return states[3] # 3 = Dragged
-			if ! idle_state.is_colliding:
+			elif ! idle_state.is_colliding:
 				return states[4]
-			if dead_state.is_dead:
+			elif dead_state.is_dead:
 				return states[6]
 		"Dragged":
 			# if object is released from Dragged state
@@ -153,18 +161,36 @@ func transition(delta):
 		"Launched":
 			if parent.mode==parent.decend:
 				return states[4]
-			if dead_state.is_dead:
+			elif dead_state.is_dead:
 				return states[6]
+			elif flip_state.is_fliping:
+				return states[7]
 		"Fall":
 			if land_state.can_land:
 				return states[5]
-			if dead_state.is_dead:
+			elif dead_state.is_dead:
 				return states[6]
+			elif flip_state.is_fliping:
+				return states[7]
 		"Land":
 			if parent.mode==parent.Idle:
 				return states[1]
-			if dead_state.is_dead:
+			elif dead_state.is_dead:
 				return states[6]
+			elif flip_state.is_fliping:
+				return states[7]
+		"Flip":
+			if !flip_state.is_fliping:
+				if parent.mode==parent.assend:
+					return states[2]
+				elif parent.mode==parent.decend:
+					return states[4]
+				elif dead_state.is_dead:
+					return states[6]
+			elif dead_state.is_dead:
+				return states[6]
+			elif idle_state.is_colliding:
+				return states[1]
 	return null
 
 
@@ -182,6 +208,8 @@ func _enter_state(_old_state,_new_state):
 			anim="Landing_Horizontal"
 		"Dead":
 			anim="Dead"
+		"Flip":
+			anim="Flip"
 	if parent.animation_player.current_animation!= anim && current_state in ["Idle","Fall","Land","Launched","Dead"]:
 		parent.animation_player.play(anim)
 
@@ -365,6 +393,26 @@ func _on_Land_Area_area_entered(area):
 		parent.call_deferred("when_sloth_enters_the_tree")
 
 
+
+func flip_physics():
+	var movements={'back':Input.is_action_pressed("Flip_front"),
+					'Front':Input.is_action_pressed("Flip_back")}
+	var Movement=int(movements['Front'])-int(movements['back'])
+	if Movement>0:
+		parent.rotation_degrees=lerp(parent.rotation_degrees,(parent.rotation_degrees-10)*Engine.time_scale,0.4)
+	elif Movement<0:
+		parent.rotation_degrees=lerp(parent.rotation_degrees,(parent.rotation_degrees+10)*Engine.time_scale,0.4)
+
+func check_for_flip():
+	#it triggers when the object is being launched or being fall
+	#if the input is !=0 it flips by trriggerring the variable it changes state 
+	#else it will return to normal state
+	var movements={'back':Input.is_action_pressed("Flip_front"),
+					'Front':Input.is_action_pressed("Flip_back")}
+	var Movement=int(movements['Front'])-int(movements['back'])
+	flip_state.is_fliping=true if Movement!=0 else false
+
+
 func Todo():
 	# TODO: Bounce while dieing
 	pass
@@ -373,3 +421,4 @@ func Todo():
 #this is done in camera of player 
 func _on_PlayerFSM_change_the_margin(enable):
 	parent.camera.drag_margin_v_enabled =enable
+
