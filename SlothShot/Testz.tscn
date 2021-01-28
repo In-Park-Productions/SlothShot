@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/game/Tree.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -32,25 +31,10 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
 [node name="Test" type="Node2D"]
 
-[node name="Trees" type="Node2D" parent="."]
-
-[node name="Tree" parent="Trees" instance=ExtResource( 2 )]
-position = Vector2( 182.566, 380.085 )
-
-[node name="Tree2" parent="Trees" instance=ExtResource( 2 )]
-position = Vector2( 420.709, 372.558 )
-
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Player" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( 171.053, 235.197 )
-
-[node name="AnimatedSprite" parent="Actors/Player/Body" index="0"]
-animation = "Dead"
-
-[node name="CollisionShape2D" parent="Actors/Player" index="2"]
-position = Vector2( -0.15, -3.122 )
-rotation = -1.5708
 
 [node name="Camera2D" parent="Actors/Player/Camera" index="0"]
 smoothing_speed = 6.0

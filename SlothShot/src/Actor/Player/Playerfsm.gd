@@ -3,6 +3,8 @@ extends "res://src/Statemachine/mainFsm.gd"
 signal change_the_margin(enable)
 
 
+
+
 # K:the function on_dead() has been changed to also reset the scene.
 
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
@@ -23,12 +25,14 @@ class drag:
 	# difference of last mouse position and current one
 	var difference:float=0.0
 	# check are for checking the anmation after the end of animation
-	enum {short_check,long_check}
+	enum {start,finished}
 	var check
 	# determines the animation to play backwards if true it will be back or else it will go front
 	var backward
 	#tracks the length
 	var length
+
+
 
 # this class uses launch_state variables
 class launched:
@@ -108,7 +112,7 @@ func state_logic(delta)->void:
 		idle_state.is_colliding=parent.check_for_collision()
 	if current_state in ["Dragged"]:
 		on_mousebutton_pressed()
-	if current_state in ["Launched"]:
+	if current_state in ["someother"]:#remember to change it to Launched
 		on_mousebutton_released()
 		calculate_the_trajectory()
 	if current_state in ["Land","Flip"]:
@@ -135,7 +139,7 @@ func state_logic(delta)->void:
 func trriger_condition():
 	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
 	# at Land,Idle,Dragged
-	var ray_disabled=false if current_state in ["Land","Idle","Dragged","Flip"] else true
+	var ray_disabled=false if current_state in ["Land","Idle","Dragged"] else true
 	parent.enable_raycast(ray_disabled)
 
 
@@ -222,8 +226,6 @@ func _exit_state(_new_state,_old_state):
 func _unhandled_input(event):
 		if event.is_action_pressed("E"):
 			Engine.time_scale=0.1
-		if event.is_action_pressed("Reset"):
-			get_tree().reload_current_scene()
 
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
@@ -284,33 +286,31 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	else:
 		drag_state.backward=null
 	#if its backwards it will play back or it will play forward else it will stop the animation
-	if parent.animation_player.current_animation!=drag_state.anim:
-		if drag_state.backward==false:
-			parent.animation_player.play("Dragged_"+drag_state.anim)
-		elif drag_state.backward==true:
-			parent.animation_player.play_backwards("Dragged_"+drag_state.anim)
-		else:
-			parent.animation_player.stop(false)
-
-# check for dragging and transitions to other animation
-
+	if drag_state.backward==false:
+		parent.animation_player.play("Dragged")
+	elif drag_state.backward==true:
+		parent.animation_player.play_backwards("Dragged")
+	else:
+		parent.animation_player.stop(false)
 	match drag_state.check:
-		drag_state.short_check:
-			if drag_state.difference==1:
-				drag_state.anim="Short"
-				drag_state.check="_"
-			else:
+		drag_state.start:
+			if drag_state.difference!=1:
 				parent.animation_player.stop(false)
-		drag_state.long_check:
-			if drag_state.difference==-1&&drag_state.anim=="Long":
-				drag_state.anim="Short"
-				drag_state.check="_"
 			else:
+				drag_state.check="_"
+		drag_state.finished:
+			if drag_state.difference!=-1:
 				parent.animation_player.stop(false)
+			else:
+				drag_state.check="_"
 		"_":
 			pass
 
+func on_animation_started():
+	drag_state.check=drag_state.start
 
+func on_animation_finished():
+	drag_state.check=drag_state.finished
 
 # calculates the difference and sets the difference sign of mouse position 
 
@@ -322,49 +322,7 @@ func calculate_difference(mouse_position:Vector2)->void:
 	drag_state.difference=sign(difference)
 
 
-# calls in animation_player(Drag_state) and during launch state too
-# short note it is called inside the animation player
-# it trrigers after the animation check for the  animation and sets the animation
 
-
-func on_short_finished()->void:
-	if drag_state.difference==-1:
-		drag_state.anim="Short"
-	elif drag_state.difference==1:
-		drag_state.anim="Long"
-
-
-
-# it does things after long its being checked with match condition
-
-func on_long_finished()->void:
-	if drag_state.anim=="Long"&&drag_state.difference==1:
-		drag_state.check=drag_state.long_check
-
-
-
-# it does stuffs when it starts check for difference and sets the animation
-func on_long_start()->void:
-	if current_state in ["Dragged"]:
-		if drag_state.difference==-1:
-			drag_state.anim="Short"
-		elif drag_state.difference==1:
-			drag_state.anim="Long"
-	if current_state in ["Launched"] && launch_state.launch_anim=="Long":
-		launch_state.launch_anim="Short"
-
-
-
-# same as long start 
-func on_short_start()->void:
-	if current_state in ["Dragged","Idle"]:
-		if drag_state.anim=="Short"&&(drag_state.difference==-1||drag_state.difference==0):
-			drag_state.check=drag_state.short_check
-
-
-# it works under Launched state 
-
-# calculates the trajectory after itss fires this function is called in player
 
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
@@ -421,4 +379,7 @@ func Todo():
 #this is done in camera of player 
 func _on_PlayerFSM_change_the_margin(enable):
 	parent.camera.drag_margin_v_enabled =enable
+
+
+
 
