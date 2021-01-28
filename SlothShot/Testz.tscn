@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://src/Actor/enemy/Eagle.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -38,6 +39,9 @@ position = Vector2( 171.053, 235.197 )
 
 [node name="Camera2D" parent="Actors/Player/Camera" index="0"]
 smoothing_speed = 6.0
+
+[node name="Eagle" parent="Actors" instance=ExtResource( 4 )]
+position = Vector2( 723.483, 86.7646 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
