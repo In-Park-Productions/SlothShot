@@ -75,7 +75,9 @@ func _init():
 		4:"Fall",
 		5:"Land",
 		6:"Dead",
-		7:"Flip"
+		7:"Flip",
+		8:"Flip_up" # temprovary state  used when fliping is realeased or if we change to launch it 
+					# lauches the sloth in air again and projectile motion repeats
 	}
 
 
@@ -101,7 +103,7 @@ func state_logic(delta)->void:
 		emit_signal("change_the_margin",enabled)
 
 
-	if current_state in ["Launched","Fall","Land","Flip"]:
+	if current_state in ["Launched","Fall","Land","Flip","Flip_up"]:
 		fall_state.collided_with_ground=parent.apply_movements()
 		if fall_state.collided_with_ground:
 			dead_state.is_dead=true
@@ -112,7 +114,7 @@ func state_logic(delta)->void:
 		idle_state.is_colliding=parent.check_for_collision()
 	if current_state in ["Dragged"]:
 		on_mousebutton_pressed()
-	if current_state in ["someother"]:#remember to change it to Launched
+	if current_state in ["Launched"]:#remember to change it to Launched
 		on_mousebutton_released()
 		calculate_the_trajectory()
 	if current_state in ["Land","Flip"]:
@@ -186,7 +188,7 @@ func transition(delta):
 		"Flip":
 			if !flip_state.is_fliping:
 				if parent.mode==parent.assend:
-					return states[2]
+					return states[8]
 				elif parent.mode==parent.decend:
 					return states[4]
 				elif dead_state.is_dead:
@@ -195,6 +197,11 @@ func transition(delta):
 				return states[6]
 			elif idle_state.is_colliding:
 				return states[1]
+		"Flip_up":
+			if parent.mode==parent.decend:
+				return states[4]
+			elif dead_state.is_dead:
+				return states[6]
 	return null
 
 
@@ -294,15 +301,15 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 		parent.animation_player.stop(false)
 	match drag_state.check:
 		drag_state.start:
-			if drag_state.difference!=1:
-				parent.animation_player.stop(false)
-			else:
+			if drag_state.difference==1:
 				drag_state.check="_"
+			else:
+				parent.animation_player.stop(false)
 		drag_state.finished:
-			if drag_state.difference!=-1:
-				parent.animation_player.stop(false)
-			else:
+			if drag_state.difference==-1:
 				drag_state.check="_"
+			else:
+				parent.animation_player.stop(false)
 		"_":
 			pass
 

@@ -1,16 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://src/game/Tree.gd" type="Script" id=2]
 [ext_resource path="res://src/Spritres/Rubber_Tree.png" type="Texture" id=3]
 
-
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15.6358, 48.1251 )
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 58.3086
+[sub_resource type="CircleShape2D" id=1]
+radius = 75.8628
 
 [node name="Tree" type="Node2D" groups=[
 "Trees",
@@ -32,14 +27,14 @@ texture = ExtResource( 3 )
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Idle"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Idle"]
 position = Vector2( -1.45568, -50.6647 )
-shape = SubResource( 1 )
+polygon = PoolVector2Array( -3.63181, -84.9899, -8.53176, 0.536343, -17.4407, 45.5267, -10.759, 46.8631, 1.26812, -12.3817, 0.377235, -34.6541, 4.38627, -84.5445 )
 
 [node name="Landarea" type="Area2D" parent="."]
 collision_layer = 2147484160
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Landarea"]
-position = Vector2( -34.1723, -54.1668 )
-shape = SubResource( 2 )
+position = Vector2( -42.1904, -75.103 )
+shape = SubResource( 1 )

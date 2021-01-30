@@ -23,6 +23,6 @@ position = Vector2( 1768, 496 )
 [node name="Player" type="Node2D" parent="Actors"]
 
 [node name="Player" parent="Actors/Player" instance=ExtResource( 2 )]
-position = Vector2( 120, 72 )
+position = Vector2( 136, 56 )
 
 [node name="Enemies_spawn" type="Node2D" parent="Actors"]
