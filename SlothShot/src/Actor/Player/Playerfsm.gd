@@ -31,18 +31,17 @@ class drag:
 	var backward
 	#tracks the length
 	var length
-
+	#factor determines zero when its back or front if 1
+	var factor=1
 
 
 # this class uses launch_state variables
 class launched:
 	#keeps the track of mouseposition and it stores it under this variable 
 	var mouse_position:Vector2=Vector2()
-	var local_mouse_position:Vector2=Vector2()
 	enum{launched,not_launched}
 	var mode=not_launched
-	var stop:bool=false
-	var launch_anim="Long"
+
 class fall:
 	var collided_with_ground=null
 
@@ -117,12 +116,12 @@ func state_logic(delta)->void:
 	if current_state in ["Launched"]:#remember to change it to Launched
 		on_mousebutton_released()
 		calculate_the_trajectory()
-	if current_state in ["Land","Flip"]:
+	if current_state in ["Land"]:
 		var collision=parent.check_for_collision()
 		if collision:
 			on_landing()
 	if current_state in ["Fall","Land","Dead","Flip"]:
-		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
+		parent.LaunchVelocity.y+=parent.Gravity*delta
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
 	if current_state in ["Dead"]:
@@ -250,7 +249,7 @@ func check_dragging_released()->void:
 # proceeds to state if its pressed
 func on_mousebutton_pressed()->void:
 	var difference_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
-	drag_state.length=(difference_mouse_position).length() if difference_mouse_position.x>0 else 0.0
+	drag_state.length=(difference_mouse_position).length()*drag_state.factor if difference_mouse_position.x>0 else 0.0
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
@@ -265,7 +264,6 @@ func on_mousebutton_released()->void:
 	# caculate trajectory function
 	if launch_state.mode==launch_state.not_launched:
 		launch_state.mouse_position =parent.global_position-parent.get_global_mouse_position()
-		launch_state.local_mouse_position=parent.get_local_mouse_position()
 		launch_state.mode=launch_state.launched
 
 
@@ -315,6 +313,10 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 
 func on_animation_started():
 	drag_state.check=drag_state.start
+	if drag_state.backward:
+		drag_state.factor=0
+	else:
+		drag_state.factor=1
 
 func on_animation_finished():
 	drag_state.check=drag_state.finished

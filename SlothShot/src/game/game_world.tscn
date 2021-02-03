@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/Platform/startPlatform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Platform/Starting_platform/startPlatform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/game/Platforms.gd" type="Script" id=3]
+[ext_resource path="res://src/game/Platform.gd" type="Script" id=3]
 [ext_resource path="res://src/game/game_world.gd" type="Script" id=4]
 
 [node name="Game" type="Node2D"]
@@ -14,9 +14,11 @@ script = ExtResource( 3 )
 
 [node name="startPlatform" parent="Platforms" instance=ExtResource( 1 )]
 position = Vector2( 440, 520 )
+script = null
 
 [node name="startPlatform2" parent="Platforms" instance=ExtResource( 1 )]
 position = Vector2( 1768, 496 )
+script = null
 
 [node name="Actors" type="Node2D" parent="."]
 
