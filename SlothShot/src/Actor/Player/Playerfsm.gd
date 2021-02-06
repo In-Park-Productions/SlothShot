@@ -3,6 +3,8 @@ extends "res://src/Statemachine/mainFsm.gd"
 signal change_the_margin(enable)
 
 
+
+
 # K:the function on_dead() has been changed to also reset the scene.
 
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
@@ -23,22 +25,23 @@ class drag:
 	# difference of last mouse position and current one
 	var difference:float=0.0
 	# check are for checking the anmation after the end of animation
-	enum {short_check,long_check}
+	enum {start,finished}
 	var check
 	# determines the animation to play backwards if true it will be back or else it will go front
 	var backward
 	#tracks the length
 	var length
+	#factor determines zero when its back or front if 1
+	var factor=1
+
 
 # this class uses launch_state variables
 class launched:
 	#keeps the track of mouseposition and it stores it under this variable 
 	var mouse_position:Vector2=Vector2()
-	var local_mouse_position:Vector2=Vector2()
 	enum{launched,not_launched}
 	var mode=not_launched
-	var stop:bool=false
-	var launch_anim="Long"
+
 class fall:
 	var collided_with_ground=null
 
@@ -71,7 +74,9 @@ func _init():
 		4:"Fall",
 		5:"Land",
 		6:"Dead",
-		7:"Flip"
+		7:"Flip",
+		8:"Flip_up" # temprovary state  used when fliping is realeased or if we change to launch it 
+					# lauches the sloth in air again and projectile motion repeats
 	}
 
 
@@ -97,7 +102,7 @@ func state_logic(delta)->void:
 		emit_signal("change_the_margin",enabled)
 
 
-	if current_state in ["Launched","Fall","Land","Flip"]:
+	if current_state in ["Launched","Fall","Land","Flip","Flip_up"]:
 		fall_state.collided_with_ground=parent.apply_movements()
 		if fall_state.collided_with_ground:
 			dead_state.is_dead=true
@@ -108,15 +113,15 @@ func state_logic(delta)->void:
 		idle_state.is_colliding=parent.check_for_collision()
 	if current_state in ["Dragged"]:
 		on_mousebutton_pressed()
-	if current_state in ["Launched"]:
+	if current_state in ["Launched"]:#remember to change it to Launched
 		on_mousebutton_released()
 		calculate_the_trajectory()
-	if current_state in ["Land","Flip"]:
+	if current_state in ["Land"]:
 		var collision=parent.check_for_collision()
 		if collision:
 			on_landing()
 	if current_state in ["Fall","Land","Dead","Flip"]:
-		parent.LaunchVelocity.y+=parent.Gravity*get_physics_process_delta_time()
+		parent.LaunchVelocity.y+=parent.Gravity*delta
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
 	if current_state in ["Dead"]:
@@ -135,7 +140,7 @@ func state_logic(delta)->void:
 func trriger_condition():
 	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
 	# at Land,Idle,Dragged
-	var ray_disabled=false if current_state in ["Land","Idle","Dragged","Flip"] else true
+	var ray_disabled=false if current_state in ["Land","Idle","Dragged"] else true
 	parent.enable_raycast(ray_disabled)
 
 
@@ -182,7 +187,7 @@ func transition(delta):
 		"Flip":
 			if !flip_state.is_fliping:
 				if parent.mode==parent.assend:
-					return states[2]
+					return states[8]
 				elif parent.mode==parent.decend:
 					return states[4]
 				elif dead_state.is_dead:
@@ -191,6 +196,11 @@ func transition(delta):
 				return states[6]
 			elif idle_state.is_colliding:
 				return states[1]
+		"Flip_up":
+			if parent.mode==parent.decend:
+				return states[4]
+			elif dead_state.is_dead:
+				return states[6]
 	return null
 
 
@@ -222,8 +232,6 @@ func _exit_state(_new_state,_old_state):
 func _unhandled_input(event):
 		if event.is_action_pressed("E"):
 			Engine.time_scale=0.1
-		if event.is_action_pressed("Reset"):
-			get_tree().reload_current_scene()
 
 #this is for dragstate 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
@@ -241,7 +249,7 @@ func check_dragging_released()->void:
 # proceeds to state if its pressed
 func on_mousebutton_pressed()->void:
 	var difference_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
-	drag_state.length=(difference_mouse_position).length() if difference_mouse_position.x>0 else 0.0
+	drag_state.length=(difference_mouse_position).length()*drag_state.factor if difference_mouse_position.x>0 else 0.0
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
@@ -256,7 +264,6 @@ func on_mousebutton_released()->void:
 	# caculate trajectory function
 	if launch_state.mode==launch_state.not_launched:
 		launch_state.mouse_position =parent.global_position-parent.get_global_mouse_position()
-		launch_state.local_mouse_position=parent.get_local_mouse_position()
 		launch_state.mode=launch_state.launched
 
 
@@ -284,33 +291,35 @@ func Animatate_sloth_acording_to_mouse_position(mouse_position:Vector2)->void:
 	else:
 		drag_state.backward=null
 	#if its backwards it will play back or it will play forward else it will stop the animation
-	if parent.animation_player.current_animation!=drag_state.anim:
-		if drag_state.backward==false:
-			parent.animation_player.play("Dragged_"+drag_state.anim)
-		elif drag_state.backward==true:
-			parent.animation_player.play_backwards("Dragged_"+drag_state.anim)
-		else:
-			parent.animation_player.stop(false)
-
-# check for dragging and transitions to other animation
-
+	if drag_state.backward==false:
+		parent.animation_player.play("Dragged")
+	elif drag_state.backward==true:
+		parent.animation_player.play_backwards("Dragged")
+	else:
+		parent.animation_player.stop(false)
 	match drag_state.check:
-		drag_state.short_check:
+		drag_state.start:
 			if drag_state.difference==1:
-				drag_state.anim="Short"
 				drag_state.check="_"
 			else:
 				parent.animation_player.stop(false)
-		drag_state.long_check:
-			if drag_state.difference==-1&&drag_state.anim=="Long":
-				drag_state.anim="Short"
+		drag_state.finished:
+			if drag_state.difference==-1:
 				drag_state.check="_"
 			else:
 				parent.animation_player.stop(false)
 		"_":
 			pass
 
+func on_animation_started():
+	drag_state.check=drag_state.start
+	if drag_state.backward:
+		drag_state.factor=0
+	else:
+		drag_state.factor=1
 
+func on_animation_finished():
+	drag_state.check=drag_state.finished
 
 # calculates the difference and sets the difference sign of mouse position 
 
@@ -322,49 +331,7 @@ func calculate_difference(mouse_position:Vector2)->void:
 	drag_state.difference=sign(difference)
 
 
-# calls in animation_player(Drag_state) and during launch state too
-# short note it is called inside the animation player
-# it trrigers after the animation check for the  animation and sets the animation
 
-
-func on_short_finished()->void:
-	if drag_state.difference==-1:
-		drag_state.anim="Short"
-	elif drag_state.difference==1:
-		drag_state.anim="Long"
-
-
-
-# it does things after long its being checked with match condition
-
-func on_long_finished()->void:
-	if drag_state.anim=="Long"&&drag_state.difference==1:
-		drag_state.check=drag_state.long_check
-
-
-
-# it does stuffs when it starts check for difference and sets the animation
-func on_long_start()->void:
-	if current_state in ["Dragged"]:
-		if drag_state.difference==-1:
-			drag_state.anim="Short"
-		elif drag_state.difference==1:
-			drag_state.anim="Long"
-	if current_state in ["Launched"] && launch_state.launch_anim=="Long":
-		launch_state.launch_anim="Short"
-
-
-
-# same as long start 
-func on_short_start()->void:
-	if current_state in ["Dragged","Idle"]:
-		if drag_state.anim=="Short"&&(drag_state.difference==-1||drag_state.difference==0):
-			drag_state.check=drag_state.short_check
-
-
-# it works under Launched state 
-
-# calculates the trajectory after itss fires this function is called in player
 
 func calculate_the_trajectory()->void:
 	if launch_state.mode==launch_state.launched:
@@ -421,4 +388,7 @@ func Todo():
 #this is done in camera of player 
 func _on_PlayerFSM_change_the_margin(enable):
 	parent.camera.drag_margin_v_enabled =enable
+
+
+
 

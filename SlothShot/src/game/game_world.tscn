@@ -1,50 +1,30 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://src/Platform/Starting_platform/startPlatform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/game/Platform.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/game/Platform.gd" type="Script" id=3]
+[ext_resource path="res://src/game/game_world.gd" type="Script" id=4]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
+script = ExtResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 262.829, 172.941 )
+[node name="Platforms" type="Node2D" parent="."]
+position = Vector2( 0, -56 )
+script = ExtResource( 3 )
 
-[node name="Platforms" type="Node" parent="."]
+[node name="startPlatform" parent="Platforms" instance=ExtResource( 1 )]
+position = Vector2( 440, 520 )
+script = null
 
-[node name="Platform" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 143.469, 139.693 )
+[node name="startPlatform2" parent="Platforms" instance=ExtResource( 1 )]
+position = Vector2( 1768, 496 )
+script = null
 
-[node name="Platform2" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 307.421, 47.877 )
+[node name="Actors" type="Node2D" parent="."]
 
-[node name="Platform3" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 393.095, 251.984 )
+[node name="Player" type="Node2D" parent="Actors"]
 
-[node name="Platform4" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 544.528, 181.631 )
+[node name="Player" parent="Actors/Player" instance=ExtResource( 2 )]
+position = Vector2( 136, 56 )
 
-[node name="Platform5" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 685.159, 94.4364 )
-
-[node name="Platform6" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 713.115, 362.857 )
-
-[node name="Platform7" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 801.31, 251.984 )
-
-[node name="Platform8" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 909.663, 68.0356 )
-
-[node name="Platform9" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 1020.54, 173.869 )
-
-[node name="Platform10" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 522.05, 601.016 )
-
-[node name="Platform11" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 162.32, 391.143 )
-
-[node name="Platform12" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 921.16, 487.917 )
-
-[node name="Platform13" parent="Platforms" instance=ExtResource( 3 )]
-position = Vector2( 366.43, 445.615 )
+[node name="Enemies_spawn" type="Node2D" parent="Actors"]
