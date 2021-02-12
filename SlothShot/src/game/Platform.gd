@@ -3,8 +3,13 @@ const Y_CORDINATE=600
 
 export(NodePath)var player_path
 
-var array:Array=["platform1","platform2","Platform3","Platform4","Platform5"]
-var platform:PackedScene=preload("res://src/Platform/StartPlatform/Start_platform.tscn")
+var Platforms:Dictionary={1:preload("res://src/Platform/StartPlatform/Platform.tscn"),
+							2:preload("res://src/Platform/Platform1/Platform1.tscn"),
+							3:preload("res://src/Platform/Platform2/Platform2.tscn"),
+							4:preload("res://src/Platform/Platform3/Platform3.tscn"),
+							5:preload("res://src/Platform/Platform5/Platform5.tscn")}
+
+var Platform_Array:Array=[Platforms[1],Platforms[2],Platforms[3],Platforms[4],Platforms[5]]
 var  last_platform_componets:Array=[]
 var ending_position
 
@@ -19,7 +24,6 @@ func _ready():
 func _physics_process(delta):
 	var distance:float= (ending_position).distance_to(player.global_position)
 	if distance<1500:
-		print("hi")
 		spawn_platforms()
 
 func spawn_platforms():
@@ -27,13 +31,14 @@ func spawn_platforms():
 	ending_position=(last_platform_componets[0].end_point.global_position)
 
 func spawn_platform(Position:Vector2)->Array:
-	var platform_child=platform.instance()
+	var platform_child=take_random_platform(Platform_Array).instance()
 	platform_child.position=Position
 	add_child(platform_child)
 	return [platform_child,Position]
 
 
-func take_random_platform(arrays:Array)->String:
+func take_random_platform(arrays:Array)->PackedScene:
 	var chance = (randi()%arrays.size())
 	var platform_to_spwan=arrays[chance]
+	print(platform_to_spwan)
 	return platform_to_spwan

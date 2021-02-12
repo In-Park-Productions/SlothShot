@@ -1,6 +1,5 @@
 extends Node2D
 
-const LENGTH=26*64
  
 signal entered
 
@@ -22,7 +21,6 @@ func _on_Area2D_body_entered(body):
 	player=body
 	if player!=null:
 		emit_signal("entered")
-
 
 
 

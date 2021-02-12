@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/Platform/StartPlatform/Start_platform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Platform/StartPlatform/Platform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/Platform.gd" type="Script" id=3]
 [ext_resource path="res://src/game/game_world.gd" type="Script" id=4]
 [ext_resource path="res://src/tests/Camera2D.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 118.651, 255.71 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 4 )
@@ -14,24 +17,22 @@ script = ExtResource( 3 )
 player_path = NodePath("../Camera2D")
 
 [node name="Platform" parent="Platforms" instance=ExtResource( 1 )]
+position = Vector2( 0, 512 )
+
+[node name="CollisionShape2D" parent="Platforms/Platform/exit area/Area2D" index="0"]
+shape = SubResource( 1 )
 
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="Actors"]
-visible = false
 
 [node name="Player" parent="Actors/Player" instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 120, 56 )
-
-[node name="Camera2D" parent="Actors/Player/Player/Camera" index="0"]
-current = false
+position = Vector2( 184, 168 )
 
 [node name="Enemies_spawn" type="Node2D" parent="Actors"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 496, 320 )
-current = true
 script = ExtResource( 5 )
 
 [editable path="Platforms/Platform"]

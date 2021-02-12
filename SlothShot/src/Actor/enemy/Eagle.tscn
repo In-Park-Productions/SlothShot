@@ -63,15 +63,15 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 171.178, 25.3814 )
 
-[node name="EagleKinematicBody2D" type="KinematicBody2D"]
+[node name="Eagle" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 
-[node name="EagleAnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Animatedsprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 12 )
 animation = "idleFlying"
-frame = 3
+frame = 2
 
-[node name="EagleCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 6.24125, 63.289 )
 shape = SubResource( 13 )

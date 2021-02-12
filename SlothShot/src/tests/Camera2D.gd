@@ -9,4 +9,4 @@ extends Camera2D
 # Called when the node enters the scene tree for the first time.
 func _process(delta):
 	var move_direction=int(Input.is_action_pressed("ui_right"))-int(Input.is_action_pressed("ui_left"))
-	position.x+=delta*250
+	#position.x+=delta*250
