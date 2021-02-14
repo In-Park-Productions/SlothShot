@@ -36,9 +36,6 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 [node name="Player" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( 171.053, 235.197 )
 
-[node name="Camera2D" parent="Actors/Player/Camera" index="0"]
-smoothing_speed = 6.0
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
 collision_mask = 8

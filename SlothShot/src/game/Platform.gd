@@ -40,5 +40,4 @@ func spawn_platform(Position:Vector2)->Array:
 func take_random_platform(arrays:Array)->PackedScene:
 	var chance = (randi()%arrays.size())
 	var platform_to_spwan=arrays[chance]
-	print(platform_to_spwan)
 	return platform_to_spwan

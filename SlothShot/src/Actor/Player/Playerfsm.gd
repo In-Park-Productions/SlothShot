@@ -1,6 +1,5 @@
 extends "res://src/Statemachine/mainFsm.gd"
 
-signal change_the_margin(enable)
 
 
 
@@ -93,15 +92,8 @@ func _ready()->void:
 	#intial state starts with idle
 	current_state=states[1]
 
-
 func state_logic(delta)->void:
 	# here all logic goes on like do action in specific state i used array coz as state increases we cant add 
-	# or condition 
-	if current_state in ["Launched","Land"]:
-		var enabled=true if current_state in ["Launched","Land"] else false
-		emit_signal("change_the_margin",enabled)
-
-
 	if current_state in ["Launched","Fall","Land","Flip","Flip_up"]:
 		fall_state.collided_with_ground=parent.apply_movements()
 		if fall_state.collided_with_ground:
@@ -134,8 +126,6 @@ func state_logic(delta)->void:
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
-
-
 
 func trriger_condition():
 	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
@@ -379,15 +369,12 @@ func check_for_flip():
 	var Movement=int(movements['Front'])-int(movements['back'])
 	flip_state.is_fliping=true if Movement!=0 else false
 
-
 func Todo():
 	# TODO: Bounce while dieing
 	pass
 
 
-#this is done in camera of player 
-func _on_PlayerFSM_change_the_margin(enable):
-	parent.camera.drag_margin_v_enabled =enable
+
 
 
 

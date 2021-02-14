@@ -16,8 +16,7 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
-onready var camera:Camera2D=get_node("Camera/Camera2D")
-
+onready var player_visibility_detector:VisibilityNotifier2D=get_node("PlayerVisibilitydetector")
 
 
 func check_for_collision()->bool:
