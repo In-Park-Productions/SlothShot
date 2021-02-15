@@ -16,8 +16,7 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
-onready var camera:Camera2D=get_node("Camera/Camera2D")
-
+onready var player_visibility_detector:VisibilityNotifier2D=get_node("PlayerVisibilitydetector")
 
 
 func check_for_collision()->bool:
@@ -55,6 +54,7 @@ func calculate_trajectory(Mouse_position:Vector2,air_resistance:float=0.0,facing
 #	
 	var mouse_length=Mouse_position.length()
 	mouse_length=clamp(mouse_length,0.0,500)
+
 	#normalising the mouse position gives the direction
 	var normalized_mouse_position=Mouse_position.normalized()
 	#takes the length if y axis is greater than zero (its below the player) its gonna give negative result
