@@ -12,6 +12,7 @@ var Platforms:Dictionary={1:preload("res://src/Platform/StartPlatform/Platform.t
 var Platform_Array:Array=[Platforms[1],Platforms[2],Platforms[3],Platforms[4],Platforms[5]]
 var  last_platform_componets:Array=[]
 var ending_position
+var dead=false
 
 onready var first_platform=get_node("Platform")
 onready var player=get_node(player_path)
@@ -25,7 +26,6 @@ func _physics_process(delta):
 	var distance:float= (ending_position).distance_to(player.global_position)
 	if distance<1500:
 		spawn_platforms()
-
 func spawn_platforms():
 	last_platform_componets=spawn_platform(Vector2(ending_position))
 	ending_position=(last_platform_componets[0].end_point.global_position)

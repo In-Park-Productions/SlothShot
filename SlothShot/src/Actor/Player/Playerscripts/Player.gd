@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 #constants
-const speed:float=400.0
-const Gravity:float=650.0
+const speed:float=500.0
+const Gravity:float=700.0
 const Weight:float=0.4
 
 #determines launch velocity 
@@ -16,7 +16,9 @@ onready var body:Node2D=get_node("Body")
 #casting for getting animation node
 onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
-onready var player_visibility_detector:VisibilityNotifier2D=get_node("PlayerVisibilitydetector")
+onready var dead_raycast:Node2D=get_node("Body/Raycast/Dead_raycast")
+
+
 
 
 func check_for_collision()->bool:
@@ -25,8 +27,8 @@ func check_for_collision()->bool:
 			return true
 	return false
 
-func enable_raycast(disabled:bool=false)->void:
-	for raycast in land_raycasts.get_children():
+func enable_raycast(raycasts=self.land_raycasts,disabled:bool=false)->void:
+	for raycast in raycasts.get_children():
 		if disabled==false:
 			if !raycast.enabled:
 				raycast.enabled=true
@@ -53,12 +55,12 @@ func calculate_trajectory(Mouse_position:Vector2,air_resistance:float=0.0,facing
 	#takes the length
 #	
 	var mouse_length=Mouse_position.length()
-	mouse_length=clamp(mouse_length,0.0,500)
+	mouse_length=clamp(mouse_length,0.0,160)
 
 	#normalising the mouse position gives the direction
 	var normalized_mouse_position=Mouse_position.normalized()
 	#takes the length if y axis is greater than zero (its below the player) its gonna give negative result
-	var length=mouse_length/1000 if Mouse_position.y>0 else -(mouse_length/1000)
+	var length=mouse_length/500 if Mouse_position.y>0 else -(mouse_length/500)
 	#gets angle of mouse
 	var angle=abs(Mouse_position.angle()) if abs(global_rotation_degrees)>1.0 else 0
 	#componets of vector for projectile motion
@@ -99,7 +101,10 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 func apply_movements():
 	var Collision=move_and_collide(LaunchVelocity*get_physics_process_delta_time())
 	return Collision
-
 # player camera 
 
-
+func dot_product(the_vector):
+	var a = Vector2(0,1)
+	var b = the_vector
+	var dotproduct=a.dot(b)
+	return dotproduct

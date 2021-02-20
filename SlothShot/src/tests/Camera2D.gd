@@ -20,14 +20,14 @@ func _physics_process(delta):
 		mode=Idle
 	elif player_state!="Idle" and player_state!="Dead":
 		mode=Follow
-	if collidied_with_area || player_state in ["Dead"]:
-		mode=Dead
+	#if collidied_with_area || player_state in ["Dead"]:
+		#mode=Dead
 	var enabled=true if player_state in ["Launched","Fall"] else false
 	emit_signal("enable_vmargin",enabled)
 	
 	match mode:
 		Idle:
-			speed=10
+			speed=20
 		Follow:
 			follow_player(player.global_position)
 		Dead:
