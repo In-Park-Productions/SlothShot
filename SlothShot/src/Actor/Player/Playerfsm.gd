@@ -3,7 +3,6 @@ extends "res://src/Statemachine/mainFsm.gd"
 
 
 
-
 # K:the function on_dead() has been changed to also reset the scene.
 
 # short note before continuing i used classes to represent the state so it wont lead to spagetti code and the classes 
@@ -60,6 +59,9 @@ class dead:
 	var velocity
 	var firction=nu
 	var dead_vector=Vector2()
+	var dead_on_slope=false
+	var rotate_factor=1
+	var check=true
 class flip:
 	var is_fliping=false
 
@@ -117,29 +119,25 @@ func state_logic(delta)->void:
 		parent.LaunchVelocity.y+=parent.Gravity*delta
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
-	if current_state in ["Dead"]:
-		for raycast in parent.dead_raycast.get_children():
-			var dot=Vector2(0,-1).dot(raycast.get_collision_normal())
-			print(dot)
-			dot_product_to_rotation(dot)
-			raycast.enabled=false
-			on_dead()
-	if current_state in ["Flip","Launched","Fall"]:
+	if current_state in ["Flip","Launched","Fall","Flip_up"]:
 		check_for_flip()
 	if current_state in ["Flip"]:
 		flip_physics()
+	if current_state in ["Dead"]:
+		if dead_state.dead_on_slope:
+			parent.rotation_degrees=-45*dead_state.rotate_factor
+		else:
+			parent.rotation=0.0
+		on_dead()
 	#check for dragging it tiggers transition
 	check_dragging_released()
 	trriger_condition()
 
-func trriger_condition():
+func trriger_condition()->void:
 	# raycast may be appering to be visible when you see in editor but in game it disables and it enables
 	# at Land,Idle,Dragged
 	var ray_disabled=false if current_state in ["Land","Idle","Dragged"] else true
 	parent.enable_raycast(parent.land_raycasts,ray_disabled)
-	var deadraycast=false if current_state in ["Dead","Fall"] else true
-	parent.enable_raycast(parent.dead_raycast,deadraycast)
-
 
 
 func transition(delta):
@@ -184,7 +182,7 @@ func transition(delta):
 		"Flip":
 			if !flip_state.is_fliping:
 				if parent.mode==parent.assend:
-					return states[8]
+					return states[2]
 				elif parent.mode==parent.decend:
 					return states[4]
 				elif dead_state.is_dead:
@@ -198,10 +196,12 @@ func transition(delta):
 				return states[4]
 			elif dead_state.is_dead:
 				return states[6]
+			elif ! flip_state.is_fliping:
+				return states[7]
 	return null
 
 
-func _enter_state(_old_state,_new_state):
+func _enter_state(_old_state,_new_state)->void:
 	var anim="Idle"
 	match _new_state:
 		"Idle":
@@ -228,7 +228,7 @@ func _exit_state(_new_state,_old_state):
 
 
 #this is for dragstate 
-func _on_Drag_Area_input_event(viewport, event, shape_idx):
+func _on_Drag_Area_input_event(viewport, event, shape_idx)->void:
 	if event is InputEventMouseButton && event.button_index==BUTTON_LEFT:
 		#it triggers the drag_state
 		drag_state.dragging=true
@@ -337,6 +337,7 @@ func on_landing()->void:
 	if parent.mode!=parent.Idle:
 		parent.mode=parent.Idle
 
+
 func on_dead()->void:
 	if dead_state.movement:
 		parent.LaunchVelocity.x-=dead_state.nu
@@ -346,6 +347,8 @@ func on_dead()->void:
 		dead_state.movement=false
 	parent.LaunchVelocity.y+=10
 	parent.LaunchVelocity=parent.move_and_slide(parent.LaunchVelocity,Vector2.UP)
+	
+	
 func _on_Land_Area_area_entered(area)->void:
 	var parent=area.get_parent()
 	if parent.is_in_group("Trees"):

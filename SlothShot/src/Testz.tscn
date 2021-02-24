@@ -36,7 +36,9 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 [node name="Player" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( 171.053, 235.197 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=[
+"Tilemaps",
+]]
 tile_set = SubResource( 2 )
 collision_mask = 8
 format = 1
