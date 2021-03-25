@@ -1,7 +1,5 @@
 extends "res://src/Statemachine/mainFsm.gd"
-
-
-
+onready var balls = [get_node("../GuideBalls"),get_node("../GuideBalls2"),get_node("../GuideBalls3"),get_node("../GuideBalls4"),get_node("../GuideBalls5")]
 
 # K:the function on_dead() has been changed to also reset the scene.
 
@@ -238,16 +236,29 @@ func check_dragging_released()->void:
 	if Input.is_action_just_released("Click"):
 		#if its released it makes dragging to false so dragging actions wont happen
 		drag_state.dragging=false
+		for ball in balls:
+			ball.visible = true #ball.visible = false ##K: I am working on this TODO
 
 
 # proceeds to state if its pressed
 func on_mousebutton_pressed()->void:
 	var difference_mouse_position:Vector2=parent.global_position-parent.get_global_mouse_position()
 	drag_state.length=(difference_mouse_position).length()*drag_state.factor if difference_mouse_position.x>0 else 0.0
+
+
 	#rotates the sloth
 	rotate_sloth()
 	#animates the sloth according to the mouse position
 	Animatate_sloth_acording_to_mouse_position(difference_mouse_position)
+	for ball in balls:
+			ball.visible = true
+
+func show_drag_guides(difference_mouse_position)->void: #K:
+	#We would want a sort of quadratic curve to show the trajectory, did we want it to be accurate, or intentionally misleading?
+	for ball in balls:
+		ball.position -= difference_mouse_position # testing out movement TODO
+	pass
+
 
 
 # it falls under multiple states
