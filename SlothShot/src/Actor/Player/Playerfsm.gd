@@ -100,7 +100,7 @@ func state_logic(delta)->void:
 		if fall_state.collided_with_ground:
 			dead_state.is_dead=true
 	if current_state in ["Idle"]:
-		parent.mode=parent.assend
+		parent.mode=parent.ascend
 		launch_state.mode=launch_state.not_launched
 		land_state.can_land=false
 		idle_state.is_colliding=parent.check_for_collision()
@@ -157,7 +157,7 @@ func transition(delta):
 				else:
 					return states[1]
 		"Launched":
-			if parent.mode==parent.decend:
+			if parent.mode==parent.descend:
 				return states[4]
 			elif dead_state.is_dead:
 				return states[6]
@@ -179,9 +179,9 @@ func transition(delta):
 				return states[7]
 		"Flip":
 			if !flip_state.is_fliping:
-				if parent.mode==parent.assend:
+				if parent.mode==parent.ascend:
 					return states[2]
-				elif parent.mode==parent.decend:
+				elif parent.mode==parent.descend:
 					return states[4]
 				elif dead_state.is_dead:
 					return states[6]
@@ -190,7 +190,7 @@ func transition(delta):
 			elif idle_state.is_colliding:
 				return states[1]
 		"Flip_up":
-			if parent.mode==parent.decend:
+			if parent.mode==parent.descend:
 				return states[4]
 			elif dead_state.is_dead:
 				return states[6]
@@ -205,7 +205,7 @@ func _enter_state(_old_state,_new_state)->void:
 		"Idle":
 			anim="IdleVertical"
 		"Launched":
-			var mode = "Start"  if parent.mode==parent.assend else "Mid"
+			var mode = "Start"  if parent.mode==parent.ascend else "Mid"
 			anim=("Launched_"+mode)
 		"Fall":
 			anim="Fall"
