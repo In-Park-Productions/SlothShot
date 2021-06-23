@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Spritres/Rubber_Tree.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 75.8628
+radius = 72.2263
 
 [node name="Tree" type="Node2D" groups=[
 "Trees",
@@ -30,5 +30,5 @@ collision_layer = 2147484160
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Landarea"]
-position = Vector2( -42.1904, -75.103 )
+position = Vector2( -42.8578, -73.7682 )
 shape = SubResource( 1 )
