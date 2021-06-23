@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Actor/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/Platform.gd" type="Script" id=3]
 [ext_resource path="res://src/game/game_world.gd" type="Script" id=4]
-[ext_resource path="res://src/tests/Camera2D.gd" type="Script" id=5]
+[ext_resource path="res://src/game/Camera2D.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 118.651, 255.71 )

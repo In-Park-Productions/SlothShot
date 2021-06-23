@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://src/tests/Arm_Sling.tscn" type="PackedScene" id=1]
-
-[node name="Variables" type="Node2D"]
-
-[node name="Arm_Sling" parent="." instance=ExtResource( 1 )]
