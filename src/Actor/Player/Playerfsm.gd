@@ -114,7 +114,7 @@ func state_logic(delta)->void:
 		if collision:
 			on_landing()
 	if current_state in ["Fall","Land","Flip"]:
-		parent.LaunchVelocity.y+=parent.Gravity*delta
+		parent.LaunchVelocity.y+=parent.GRAVITY*delta
 		if current_state in ["Fall"]:
 			land_state.is_in_tree=false
 	if current_state in ["Flip","Launched","Fall","Flip_up"]:
@@ -388,6 +388,7 @@ func check_for_flip()->void:
 
 
 func dot_product_to_rotation(dot_product):
+	#instead of calling dot_product, calling "the_vector.dot(Vector2(0,1))" and dot_product_to_rotation can now take the_vector (more readable)
 	if dot_product==1 || dot_product==0:
 		parent.rotation=0.0
 	elif dot_product>=0.5||dot_product<=0.9:

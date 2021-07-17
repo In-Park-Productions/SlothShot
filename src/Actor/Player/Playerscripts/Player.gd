@@ -2,14 +2,14 @@
 extends KinematicBody2D
 
 #constants
-const speed:float=500.0
-const Gravity:float=700.0
-const Weight:float=0.4
+const SPEED:float=500.0
+const GRAVITY:float=700.0
+const WEIGHT:float=0.4
 
 #determines launch velocity 
 var LaunchVelocity:Vector2=Vector2() 
 #divided in to 2 modes one body ascends and then other part it descends
-enum{ascend,descend,Idle}
+enum{ascend,descend,Idle} #K: may not be used? 
 var mode=ascend
 
 #cast nodes
@@ -19,13 +19,13 @@ onready var animation_player:AnimationPlayer=get_node("Body/AnimationPlayer")
 onready var land_raycasts:Node2D=get_node("Body/Raycast/Land_raycast")
 
 
-
-
 func check_for_collision()->bool:
 	for raycast in land_raycasts.get_children():
 		if raycast.is_colliding():
 			return true
 	return false
+
+
 
 func enable_raycast(raycasts=self.land_raycasts,disabled:bool=false)->void:
 	for raycast in raycasts.get_children():
@@ -65,14 +65,14 @@ func calculate_trajectory(Mouse_position:Vector2,air_resistance:float=0.0,facing
 	var angle=abs(Mouse_position.angle()) if abs(global_rotation_degrees)>1.0 else 0
 	#components of vector for projectile motion
 	var components={'x':cos(angle),
-					'y':sin(angle)+Gravity}
-	#gives time of flight value so that we can create a timer for that and we can apply gravity later
-	var time_of_flight=(speed*sin(angle)/float(Gravity+air_resistance))
+					'y':sin(angle)+GRAVITY}
+	#gives time of flight value so that we can create a timer for that and we can apply GRAVITY later
+	var time_of_flight=(SPEED*sin(angle)/float(GRAVITY+air_resistance))
 	var final_velocity=[]
 	#appends the array with value of resultant 
-	final_velocity.append(Vector2(components['x']*speed*facing*normalized_mouse_position.x,components['y']*length))
+	final_velocity.append(Vector2(components['x']*SPEED*facing*normalized_mouse_position.x,components['y']*length))
 	
-	#it returns final speed thats a array , time of flight thats float
+	#it returns final SPEED thats a array , time of flight thats float
 	return [final_velocity,time_of_flight]
 
 
@@ -89,7 +89,7 @@ func apply_velocity(mouse_position:Vector2,Velocity:Vector2)->void:
 	#gets time of the flight value from the physics
 	var time_of_flight:float=return_array[1]
 	#here I made 2 type of mode one ascends it gets the velocity it applies that velocity up to time of flight period
-	#after that it descends due to gravity
+	#after that it descends due to GRAVITY
 	if mode==ascend:
 		#assigns the velocity to launch velocity
 		LaunchVelocity=velocity
@@ -103,7 +103,7 @@ func apply_movements():
 	return Collision
 # player camera 
 
-func dot_product(the_vector):
+func dot_product(the_vector): #K: I think there is a built in function that dot pr
 	var a = Vector2(0,1)
 	var b = the_vector
 	var dotproduct=a.dot(b)
