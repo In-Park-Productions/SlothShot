@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Finate_state_machine",
+"language": "GDScript",
+"path": "res://src/Statemachine/Finate_state_machine.gd"
+}, {
+"base": "Node2D",
+"class": "State",
+"language": "GDScript",
+"path": "res://src/Statemachine/State/State.gd"
+}, {
+"base": "Node2D",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://src/Actor/Player/Player_stats/Player_kinematics.gd"
+} ]
 _global_script_class_icons={
-
+"Finate_state_machine": "",
+"State": "",
+"Stats": ""
 }
 
 [application]
