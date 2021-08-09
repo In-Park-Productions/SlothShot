@@ -4,9 +4,15 @@ class_name State
 
 onready var actor=get_parent().get_parent()
 onready var fsm=get_parent()
+onready var player_stats=actor.get_node("Player_stats")
+var stats=[]
+var current_play=true
+
 
 func _ready():
-	print(actor)
+	for stat in player_stats.get_children():
+		stats.append(stat)
+
 
 
 func play_current_state(delta):

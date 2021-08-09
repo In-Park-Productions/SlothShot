@@ -1,17 +1,11 @@
 extends Node2D
 
-export (NodePath) var player_path
-export (NodePath) var camera_path
-
-onready var camera=get_node(camera_path)
-onready var player=get_node(player_path)
-
-
-
 
 
 func _physics_process(delta):
 	pass
+
+
 
 
 

@@ -18,16 +18,10 @@ _global_script_classes=[ {
 "class": "State",
 "language": "GDScript",
 "path": "res://src/Statemachine/State/State.gd"
-}, {
-"base": "Node2D",
-"class": "Stats",
-"language": "GDScript",
-"path": "res://src/Actor/Player/Player_stats/Player_kinematics.gd"
 } ]
 _global_script_class_icons={
 "Finate_state_machine": "",
-"State": "",
-"Stats": ""
+"State": ""
 }
 
 [application]

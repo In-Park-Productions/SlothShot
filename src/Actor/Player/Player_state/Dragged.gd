@@ -10,6 +10,12 @@ var check=false
 var drag_factor=1.0
 enum current_state{start,end}
 var check_mode="_"
+var launched=false
+
+
+func _ready():
+	current_play=false
+
 
 func play_current_state(delta):
 	if is_being_clicked:
@@ -19,11 +25,7 @@ func play_current_state(delta):
 
 func check_exit_condition(delta):
 	if transition_to_next_stage():
-		update_actor_kinematics(delta)
 		return "Launched"
-
-func check_previous_state_condition(previous_state):
-	pass
 
 
 func on_mouse_button_pressed():
@@ -32,11 +34,13 @@ func on_mouse_button_pressed():
 	
 	rotate_actor(diffrence_mouse_position,diffrence_mouse_position.angle())
 	Animate_player_with_mouse_position(diffrence_mouse_position)
-
+	launched=false
 func on_mouse_button_released():
 	if Input.is_action_just_released("Click"):
 		is_being_clicked=false
 		current_mouse_position=actor.global_position-actor.get_global_mouse_position()
+		var player_kinematics=actor.Player_kinematics
+		player_kinematics.calculate_velocity(current_mouse_position,launched)
 		#check for the exiting state
 
 
@@ -84,28 +88,10 @@ func calculate_difference(mouse_position:Vector2)->void:
 	drag_diffrence=sign(difference)
 
 func transition_to_next_stage()->bool:
-	if !is_being_clicked && drag_length>25.0:
+	if !is_being_clicked && drag_length>25.0 :
 		return true 
 	return false
 
-
-func update_actor_kinematics(delta):
-	pass
-
-#Old Code
-func calculate_velocity(mouse_position,Speed,Gravity,facing:=1.0):
-	"""this function gets the mouse position from this state and gets Speed and gravity from the actor(player). it takes the angle
-	 and makes a dictionary of components and takes the length of the mouse_position and calculates the time of the flight 
-	and it sucessfully returns a array of velocity and time of the flight we can update that value in player's kinematics  """
-	var normalized_mouse_position=mouse_position.normalized()
-	var angle=abs(mouse_position.angle()) if abs(actor.global_rotation_degrees)>1.0 else 0
-	var mouse_length=mouse_position.length()
-	mouse_length=clamp(mouse_length,0.0,600)
-	var components={"X":cos(angle),
-				"Y":sin(angle)+Gravity}
-	var length=mouse_length/1000 if mouse_position.y>0 else -(mouse_length)/1000
-	var time_of_flight=(2 * Speed * sin(angle))/float(Gravity)
-	return [Vector2(components["X"]*Speed*normalized_mouse_position.x*facing,-400),time_of_flight]
 
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("Click"):
