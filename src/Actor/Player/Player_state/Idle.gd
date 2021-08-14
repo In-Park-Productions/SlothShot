@@ -8,10 +8,9 @@ func play_current_state(delta):
 
 func check_exit_condition(delta):
 	if  ! actor.check_raycast_collision():
-		return "Fall"
+		return "Fall" 
 	if Dragg_state.is_being_clicked:
 		return "Dragged"
-
 func check_previous_state_condition(previous_state):
 	pass
 

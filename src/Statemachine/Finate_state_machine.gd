@@ -1,5 +1,5 @@
 extends Node
-class_name Finate_state_machine
+class_name finite_state_machine
 
 onready var parent=get_parent()
 var previous_state
@@ -13,7 +13,6 @@ func _physics_process(delta):
 	var current_state=get_current_state()
 	if current_state !=null:
 		get_node(current_state).play_current_state(delta)
-		print(current_state)
 	var next_state=get_node(current_state).check_exit_condition(delta)
 	if next_state!=null:
 		previous_state=pop_state()

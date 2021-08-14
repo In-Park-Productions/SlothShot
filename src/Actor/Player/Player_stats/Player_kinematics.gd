@@ -55,6 +55,5 @@ func apply_velocity(delta):
 
 
 func apply_gravity(delta):
-	print("IAM RUNNING")
 	current_velocity.y+=gravity*delta
 

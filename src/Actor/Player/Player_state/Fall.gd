@@ -8,6 +8,8 @@ func play_current_state(delta):
 func check_exit_condition(delta):
 	if actor.check_raycast_collision():
 		return "Idle"
+	if Input.is_action_pressed("Land"):
+		return "Land"
 
 func check_previous_state_condition(previous_state):
 	pass

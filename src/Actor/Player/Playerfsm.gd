@@ -1,4 +1,4 @@
-extends Finate_state_machine
+extends finite_state_machine
 
 
 
