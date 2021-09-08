@@ -23,15 +23,42 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
 
+[node name="StaticBody2D3" type="Area2D" parent="."]
+position = Vector2( 602.185, 222.546 )
+rotation = 1.5708
+scale = Vector2( 2, 0.1 )
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D3"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D2" type="Area2D" parent="."]
+position = Vector2( 836.818, 216.542 )
+rotation = 1.5708
+scale = Vector2( 2, 0.1 )
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D2"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource( 1 )
+
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Player" type="Node2D" parent="Actors"]
 position = Vector2( 23, -15 )
+scale = Vector2( 0.923999, 0.995101 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Player" parent="Actors/Player" instance=ExtResource( 2 )]
-position = Vector2( 333.117, 48.4694 )
+position = Vector2( 354.327, 47.9951 )
 
 [node name="Enemies_spawn" type="Node2D" parent="Actors"]

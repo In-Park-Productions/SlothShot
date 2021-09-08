@@ -6,6 +6,7 @@ func play_current_state(delta):
 
 
 func check_exit_condition(delta):
-	if Input.is_action_just_released("Land"):
+	if Input.is_action_just_released("E"):
 		return "Fall"
-
+	if actor.check_raycast_collision():
+		return "Idle"

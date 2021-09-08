@@ -17,5 +17,5 @@ func _physics_process(delta):
 
 
 func disable_raycast(current_state):
-	var enabled=true if current_state in ["Idle","Fall"] else false
+	var enabled=true if current_state in ["Idle","Fall","Land"] else false
 	parent.enable_or_disable_raycast(enabled)

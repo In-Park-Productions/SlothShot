@@ -70,111 +70,111 @@ region = Rect2( 195, 306, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 255, 65, 51 )
+region = Rect2( 65, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 65, 51 )
+region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 204, 65, 51 )
+region = Rect2( 0, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 204, 65, 51 )
+region = Rect2( 130, 255, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 204, 65, 51 )
+region = Rect2( 195, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 0, 65, 51 )
+region = Rect2( 260, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 0, 65, 51 )
+region = Rect2( 325, 204, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 0, 65, 51 )
+region = Rect2( 130, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 0, 65, 51 )
+region = Rect2( 195, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 0, 65, 51 )
+region = Rect2( 260, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 51, 65, 51 )
+region = Rect2( 325, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 51, 65, 51 )
+region = Rect2( 390, 0, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 51, 65, 51 )
+region = Rect2( 0, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 51, 65, 51 )
+region = Rect2( 65, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 51, 65, 51 )
+region = Rect2( 130, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 51, 65, 51 )
+region = Rect2( 195, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 51, 65, 51 )
+region = Rect2( 260, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 102, 65, 51 )
+region = Rect2( 325, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 102, 65, 51 )
+region = Rect2( 390, 51, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 102, 65, 51 )
+region = Rect2( 0, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 1 )
-region = Rect2( 195, 102, 65, 51 )
+region = Rect2( 65, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 1 )
-region = Rect2( 260, 102, 65, 51 )
+region = Rect2( 130, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 1 )
-region = Rect2( 325, 102, 65, 51 )
+region = Rect2( 195, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 1 )
-region = Rect2( 390, 102, 65, 51 )
+region = Rect2( 260, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 153, 65, 51 )
+region = Rect2( 325, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=40]
 atlas = ExtResource( 1 )
-region = Rect2( 65, 0, 65, 51 )
+region = Rect2( 390, 102, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=41]
 atlas = ExtResource( 1 )
-region = Rect2( 130, 0, 65, 51 )
+region = Rect2( 0, 153, 65, 51 )
 
 [sub_resource type="AtlasTexture" id=42]
 atlas = ExtResource( 1 )
@@ -212,29 +212,29 @@ animations = [ {
 "name": "Attack",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 15 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
-"name": "Dead",
+"name": "IdleVertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 18 ) ],
+"loop": true,
+"name": "Dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
 "loop": true,
 "name": "Landing_Vertical",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": false,
 "name": "Dragged",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 40 ), SubResource( 41 ) ],
-"loop": true,
-"name": "IdleVertical",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ) ],
@@ -516,7 +516,19 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 2, -20 ) ]
+"values": [ Vector2( -0.598587, -14.9603 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("..:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=53]
@@ -595,7 +607,7 @@ tracks/5/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=55]
+[sub_resource type="Animation" id=54]
 resource_name = "Land"
 length = 0.1
 loop = true
@@ -623,8 +635,32 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("..:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 45.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Raycast:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.94656, 0.100922 ) ]
+}
 
-[sub_resource type="Animation" id=54]
+[sub_resource type="Animation" id=55]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -868,6 +904,7 @@ extents = Vector2( 10, 12.2991 )
 "Player",
 ]]
 position = Vector2( 509.938, 246.749 )
+rotation = 0.785398
 scale = Vector2( 2, 2 )
 collision_layer = 4
 script = ExtResource( 2 )
@@ -926,8 +963,8 @@ anims/Dead = SubResource( 50 )
 anims/Dragged = SubResource( 51 )
 anims/Fall = SubResource( 52 )
 anims/Idle = SubResource( 53 )
-anims/Land = SubResource( 55 )
-anims/Landing_Horizontal = SubResource( 54 )
+anims/Land = SubResource( 54 )
+anims/Landing_Horizontal = SubResource( 55 )
 anims/Lands = SubResource( 56 )
 anims/Launched = SubResource( 57 )
 anims/Launched_Mid = SubResource( 59 )
@@ -938,7 +975,6 @@ anims/Launched_Mid = SubResource( 59 )
 visible = false
 position = Vector2( -10.0721, 0.69591 )
 shape = SubResource( 58 )
-disabled = true
 
 [node name="Anchor_point" type="Position2D" parent="."]
 position = Vector2( 0, 2 )
@@ -952,6 +988,7 @@ position = Vector2( -8.52165, -0.659615 )
 shape = SubResource( 60 )
 
 [node name="Raycast" type="Node2D" parent="."]
+position = Vector2( 2.94656, 0.100922 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2( -6, 1 )

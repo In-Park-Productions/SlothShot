@@ -2,7 +2,6 @@ extends State
 
 var drag_diffrence=0
 var is_being_clicked:bool=false
-var play_backwards=false
 var current_mouse_position=Vector2()
 var previous_mouse_position=Vector2()
 var drag_length=0.0
@@ -18,6 +17,8 @@ func _ready():
 
 
 func play_current_state(delta):
+	"""Check the mouse is _being click or not if its not being clicked
+	adn then released then release function goes"""
 	if is_being_clicked:
 		on_mouse_button_pressed()
 	on_mouse_button_released()
@@ -25,6 +26,7 @@ func play_current_state(delta):
 
 func check_exit_condition(delta):
 	if transition_to_next_stage():
+		launched=false
 		return "Launched"
 
 
@@ -96,3 +98,4 @@ func transition_to_next_stage()->bool:
 func _on_Drag_Area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("Click"):
 		is_being_clicked=true
+

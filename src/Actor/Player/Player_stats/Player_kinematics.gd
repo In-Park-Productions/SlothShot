@@ -43,7 +43,7 @@ func calculate_velocity(mouse_position,Launched=false):
 	applied_velocity.x=Speed*mouse_direction.x #Equilent to speed*cos(angle)
 	applied_velocity.y=(Speed*components[1][1]+gravity)*mouse_length
 	Launched=true
-
+	trajectory=mode.assend
 
 func apply_velocity(delta):
 	current_velocity=applied_velocity

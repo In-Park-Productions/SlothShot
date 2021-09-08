@@ -25,7 +25,7 @@ func check_raycast_collision():
 	return false
 
 
-func enable_or_disable_raycast(enabled=true):
+func enable_or_disable_raycast(enabled):
 	for raycast in raycast_parent.get_children():
 		raycast.enabled=enabled
 
@@ -38,7 +38,5 @@ func add_slow_motion():
 	animation_player.playback_speed=5
 
 func remove_slow_motion():
-	
-	
 	Engine.time_scale=1
 	animation_player.playback_speed=1

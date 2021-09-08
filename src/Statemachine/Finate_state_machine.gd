@@ -19,7 +19,7 @@ func _physics_process(delta):
 		push_state(next_state)
 		get_node(next_state).check_previous_state_condition(previous_state)
 
-
+	print(current_state)
 
 func push_state(state):
 	if get_current_state() !=state:
