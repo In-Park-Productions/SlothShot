@@ -8,7 +8,11 @@
 script = ExtResource( 4 )
 
 [node name="StaticBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 50.4532, 321.258 )
+position = Vector2( 170.725, 335.512 )
+collision_mask = 4
+
+[node name="StaticBody2D2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 565.453, 334.258 )
 collision_mask = 4
 
 [node name="Actors" type="Node2D" parent="."]
@@ -23,6 +27,9 @@ __meta__ = {
 [node name="Enemies_spawn" type="Node2D" parent="Actors"]
 
 [node name="Logger" parent="." instance=ExtResource( 3 )]
-position = Vector2( 273.728, 254.38 )
+position = Vector2( 354.728, 272.38 )
+
+[node name="Sprite" parent="Logger/Body" index="0"]
+frame = 8
 
 [editable path="Logger"]
